@@ -820,7 +820,7 @@ function generateCalculatorCards(category, subcategory) {
   let cardsHTML = "";
   calculatorList.forEach((calc) => {
     cardsHTML += `
-                    <div class="calculator-card" data-calculator="${calc.id}">
+                    <div class="calculator-card" data-calculator="${calc.id}" tabindex="0" role="button" aria-label="${calc.name}">
                         <h3><span class="emoji">${calc.emoji}</span> ${calc.name}</h3>
                         <p>${calc.description}</p>
                     </div>
@@ -829,11 +829,20 @@ function generateCalculatorCards(category, subcategory) {
 
   container.innerHTML = cardsHTML;
 
-  // Add click event listeners to the cards
+  // Add event listeners to the cards
   container.querySelectorAll(".calculator-card").forEach((card) => {
-    card.addEventListener("click", () => {
+    const handleSelect = () => {
       const calculatorId = card.getAttribute("data-calculator");
       showCalculator(category, subcategory, calculatorId);
+    };
+
+    card.addEventListener("click", handleSelect);
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleSelect();
+      }
     });
   });
 }
