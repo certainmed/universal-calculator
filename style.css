@@ -245,6 +245,16 @@ button.calculate-btn:hover {
   border-left: 4px solid #2ecc71;
 }
 
+/* Reset button styles for calculator card */
+button.calculator-card {
+  border: none;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   header h1 {
