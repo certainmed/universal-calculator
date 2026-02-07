@@ -820,7 +820,7 @@ function generateCalculatorCards(category, subcategory) {
   let cardsHTML = "";
   calculatorList.forEach((calc) => {
     cardsHTML += `
-                    <div class="calculator-card" data-calculator="${calc.id}">
+                    <div class="calculator-card" data-calculator="${calc.id}" role="button" tabindex="0" aria-label="${calc.name}">
                         <h3><span class="emoji">${calc.emoji}</span> ${calc.name}</h3>
                         <p>${calc.description}</p>
                     </div>
@@ -831,9 +831,19 @@ function generateCalculatorCards(category, subcategory) {
 
   // Add click event listeners to the cards
   container.querySelectorAll(".calculator-card").forEach((card) => {
-    card.addEventListener("click", () => {
+    const handleSelect = () => {
       const calculatorId = card.getAttribute("data-calculator");
       showCalculator(category, subcategory, calculatorId);
+    };
+
+    card.addEventListener("click", handleSelect);
+
+    // Add keyboard support
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault(); // Prevent scrolling for Space
+        handleSelect();
+      }
     });
   });
 }
@@ -846,6 +856,13 @@ function showCalculator(category, subcategory, calculatorId) {
   if (calculator) {
     calculatorDisplay.innerHTML = calculator.generateHTML();
     calculator.attachEvents();
+
+    // Move focus to the calculator content for accessibility
+    const heading = calculatorDisplay.querySelector("h2");
+    if (heading) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus();
+    }
   }
 }
 

@@ -144,6 +144,13 @@ main {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
+.calculator-card:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  outline: 3px solid #3498db;
+  outline-offset: 4px;
+}
+
 .calculator-card h3 {
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
