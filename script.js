@@ -820,10 +820,10 @@ function generateCalculatorCards(category, subcategory) {
   let cardsHTML = "";
   calculatorList.forEach((calc) => {
     cardsHTML += `
-                    <div class="calculator-card" data-calculator="${calc.id}">
+                    <button type="button" class="calculator-card" data-calculator="${calc.id}">
                         <h3><span class="emoji">${calc.emoji}</span> ${calc.name}</h3>
                         <p>${calc.description}</p>
-                    </div>
+                    </button>
                 `;
   });
 

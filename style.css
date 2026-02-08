@@ -137,6 +137,20 @@ main {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  /* Button reset styles */
+  border: none;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  appearance: none;
+  display: block;
+}
+
+button.calculator-card:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+  z-index: 10;
 }
 
 .calculator-card:hover {
