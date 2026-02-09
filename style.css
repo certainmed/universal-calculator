@@ -271,3 +271,16 @@ button.calculate-btn:hover {
     gap: 0.5rem;
   }
 }
+
+/* Accessibility Focus Styles */
+:focus-visible {
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* Specific focus for calculator cards to match design */
+.calculator-card:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(52, 152, 219, 0.5);
+  outline: none;
+}
