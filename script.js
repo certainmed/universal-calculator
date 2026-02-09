@@ -819,21 +819,31 @@ function generateCalculatorCards(category, subcategory) {
 
   let cardsHTML = "";
   calculatorList.forEach((calc) => {
+    const titleId = `${calc.id}-title`;
+    const descId = `${calc.id}-desc`;
     cardsHTML += `
-                    <div class="calculator-card" data-calculator="${calc.id}">
-                        <h3><span class="emoji">${calc.emoji}</span> ${calc.name}</h3>
-                        <p>${calc.description}</p>
+                    <div class="calculator-card" data-calculator="${calc.id}" tabindex="0" role="button" aria-labelledby="${titleId}" aria-describedby="${descId}">
+                        <h3 id="${titleId}"><span class="emoji">${calc.emoji}</span> ${calc.name}</h3>
+                        <p id="${descId}">${calc.description}</p>
                     </div>
                 `;
   });
 
   container.innerHTML = cardsHTML;
 
-  // Add click event listeners to the cards
+  // Add click and keydown event listeners to the cards
   container.querySelectorAll(".calculator-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      const calculatorId = card.getAttribute("data-calculator");
-      showCalculator(category, subcategory, calculatorId);
+    const calculatorId = card.getAttribute("data-calculator");
+    const openCalculator = () => showCalculator(category, subcategory, calculatorId);
+
+    card.addEventListener("click", openCalculator);
+
+    // Add keyboard support (Enter or Space)
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault(); // Prevent scrolling for Space
+        openCalculator();
+      }
     });
   });
 }
