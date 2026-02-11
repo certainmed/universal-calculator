@@ -139,9 +139,16 @@ main {
   overflow: hidden;
 }
 
-.calculator-card:hover {
+.calculator-card:hover,
+.calculator-card:focus-visible {
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  outline: 3px solid #3498db;
+  outline-offset: 2px;
+}
+
+.calculator-card:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .calculator-card h3 {
