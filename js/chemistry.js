@@ -374,16 +374,16 @@ export const chemistryCalculators = {
             <p>The calculation depends on whether you are analyzing a mixture or a solution.</p>
 
             <h4>1. Component in a Mixture</h4>
-            \[ \text{Mass Percent} = \left(\frac{\text{Mass of Component}}{\text{Total Mass of Mixture}}\right) \times 100 \]
+            \\[ \\text{Mass Percent} = \\left(\\frac{\\text{Mass of Component}}{\\text{Total Mass of Mixture}}\\right) \\times 100 \\]
 
             <h4>2. Solute in a Solution</h4>
-            \[ \text{Mass Percent} = \left(\frac{\text{Mass of Solute}}{\text{Mass of Solution}}\right) \times 100 \]
+            \\[ \\text{Mass Percent} = \\left(\\frac{\\text{Mass of Solute}}{\\text{Mass of Solution}}\\right) \\times 100 \\]
 
             <p>Where:</p>
-            \[ \text{Mass of Solution} = \text{Mass of Solute} + \text{Mass of Solvent} \]
+            \\[ \\text{Mass of Solution} = \\text{Mass of Solute} + \\text{Mass of Solvent} \\]
 
             <p>You can rearrange this formula to find the mass of the solvent or solute if the total mass is known:</p>
-            \[ \text{Mass of Solvent} = \text{Mass of Solution} - \text{Mass of Solute} \]
+            \\[ \\text{Mass of Solvent} = \\text{Mass of Solution} - \\text{Mass of Solute} \\]
 
             <h3>Calculating Percent Composition</h3>
             <p>To determine the percent composition of a compound:</p>
