@@ -267,15 +267,21 @@ const calculators = {
             const formSelector = `
               <div class="form-group">
                 <label>Formula Form:</label>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
-                  <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; white-space: nowrap;">
-                    <input type="radio" name="quad-form" value="standard" checked> Ax² + Bx + C = 0
+                <div class="formula-radio-group">
+                  <label class="custom-radio-label">
+                    <input type="radio" name="quad-form" value="standard" checked>
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">Ax² + Bx + C = 0</span>
                   </label>
-                  <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; white-space: nowrap;">
-                    <input type="radio" name="quad-form" value="vertex"> A(x - H)² + K = 0
+                  <label class="custom-radio-label">
+                    <input type="radio" name="quad-form" value="vertex">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">A(x - H)² + K = 0</span>
                   </label>
-                  <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; white-space: nowrap;">
-                    <input type="radio" name="quad-form" value="factored"> A(x - x₁)(x - x₂) = 0
+                  <label class="custom-radio-label">
+                    <input type="radio" name="quad-form" value="factored">
+                    <span class="radio-mark"></span>
+                    <span class="radio-text">A(x - x₁)(x - x₂) = 0</span>
                   </label>
                 </div>
               </div>

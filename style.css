@@ -315,3 +315,73 @@ button.calculate-btn:hover {
     display: block;
   }
 }
+
+/* Custom Radio Buttons */
+.formula-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.custom-radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1rem;
+  position: relative;
+  user-select: none;
+  font-weight: normal;
+}
+
+/* Hide default radio */
+.custom-radio-label input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Custom indicator */
+.radio-mark {
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 2px solid #3B82F6; /* Blue border */
+  border-radius: 50%;
+  margin-right: 1rem; /* Spacing between radio and text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+/* Inner dot */
+.radio-mark::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #3B82F6; /* Blue fill */
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.2s ease;
+}
+
+/* Checked state */
+.custom-radio-label input:checked ~ .radio-mark::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Focus state */
+.custom-radio-label input:focus ~ .radio-mark {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.radio-text {
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
