@@ -352,86 +352,58 @@ export const chemistryCalculators = {
     description: "Calculate the mass percentage of a solute in a solution, a chemical component in a compound, or the percent composition of a mixture.",
     educationalHTML: `
         <div class="educational-section">
-            <h3>Mass percent calculator</h3>
-            <p>Our mass percent calculator is a handy tool that helps you calculate the ratio of the mass of a component in a substance to the total mass of the substance. We represent it using percentages %.</p>
+            <h3>Mass Percentage Calculator</h3>
+            <p>This calculator determines the mass percentage of a solute in a solution or a specific component within a mixture. It also computes the percent composition of a compound based on its chemical formula.</p>
 
-            <p>The mass percent calculator requires you to input the mass of solute and solvent of the solution if you have these values in grams. Alternatively, you can enter the mass of the component in the mixture and the total mass of the mixture. If you want to convert between mass and moles, then please refer to our grams to moles calculator.</p>
+            <p>To use this tool, enter the mass of the solute and solvent (or the total mixture mass). Alternatively, input the chemical formula to find the percent composition by element.</p>
 
-            <p>As a result, our calculator gives you the mass percentage of your solute in a solution, or chemical component in a compound, depending on which mass percent formula you are using.</p>
-
-            <p>You also have the option to calculate the percent composition of a mixture. You may enter the number of atoms of the element present in a mixture and our tool will give you the percent composition as a percentage of each element you selected.</p>
-
-            <div style="background-color: #f0f7ff; padding: 10px; border-left: 5px solid #3498db; margin: 10px 0;">
-                💡 Also, it may be good to remember the mass percentage of a solution is a property that is independent of temperature.
+            <div style="background-color: #f0f7ff; color: #1a1a1a; padding: 10px; border-left: 5px solid #3498db; margin: 10px 0;">
+                💡 Note: The mass percentage of a solution is independent of temperature.
             </div>
 
-            <h3>What is mass percent? Mass percent and percent composition</h3>
-            <p>Now that you know how to find the mass percent of a solution with our calculator, it's time to learn about the mass percent definition:</p>
+            <h3>Understanding Mass Percent</h3>
+            <p>Mass percent expresses the concentration of a component in a mixture or compound. For solutions, it represents the ratio of the solute's mass to the total solution's mass as a percentage.</p>
 
-            <p>The mass percentage represents the concentration of a component of a mixture or compound. For solutions, the mass percent represents the ratio of solute to the total solution as a percentage.</p>
-
-            <p>The mass percent and percent composition are two distinct concepts that are usually confused, as they both represent the percentages of components. The main difference between mass percent and percent composition is:</p>
+            <p>Mass percent differs from percent composition:</p>
             <ul>
-                <li>The mass percent gives the percentage ratio of the mass of a component in a mixture and the total mass of the substance; and</li>
-                <li>The percent composition represents the above percentages but as the mass of each element in the mixture.</li>
+                <li><strong>Mass Percent:</strong> The percentage by mass of a component relative to the total mixture mass.</li>
+                <li><strong>Percent Composition:</strong> The percentage by mass of each element within a compound.</li>
             </ul>
 
-            <h3>How to find mass percent? Mass percent formula</h3>
-            <p>The mass percent formula exists in two variations: the first to determine the amount of a component in a substance, and the second to determine the percentage of a solute in a solution.</p>
+            <h3>Mass Percent Formulas</h3>
+            <p>The calculation depends on whether you are analyzing a mixture or a solution.</p>
 
-            <h4>Mass percent of a compound</h4>
-            \\[ \\text{mass percent} = (\\frac{\\text{mass of component}}{\\text{total mass of compound}}) \\times 100 \\]
+            <h4>1. Component in a Mixture</h4>
+            \[ \text{Mass Percent} = \left(\frac{\text{Mass of Component}}{\text{Total Mass of Mixture}}\right) \times 100 \]
 
-            <h4>Mass percent of a solute in a solution</h4>
-            \\[ \\text{mass percent} = (\\frac{\\text{mass of solute}}{\\text{mass of solution}}) \\times 100 \\]
+            <h4>2. Solute in a Solution</h4>
+            \[ \text{Mass Percent} = \left(\frac{\text{Mass of Solute}}{\text{Mass of Solution}}\right) \times 100 \]
 
-            <h4>Total solution mass</h4>
-            \\[ \\text{mass of solution} = \\text{mass of solute} + \\text{mass of solvent} \\]
+            <p>Where:</p>
+            \[ \text{Mass of Solution} = \text{Mass of Solute} + \text{Mass of Solvent} \]
 
-            <h4>Solute or solvent</h4>
-            <p>You can alter the formula for the total solution to calculate the amount of solvent or solute:</p>
-            \\[ \\text{mass of solvent} = \\text{mass of solution} - \\text{mass of solute} \\]
-            \\[ \\text{mass of solute} = \\text{mass of solution} - \\text{mass of solvent} \\]
+            <p>You can rearrange this formula to find the mass of the solvent or solute if the total mass is known:</p>
+            \[ \text{Mass of Solvent} = \text{Mass of Solution} - \text{Mass of Solute} \]
 
-            <p>We measure mass in grams. Still, you are free to use other measurement units as long as you use the same unit for both variables in the equation.</p>
+            <h3>Calculating Percent Composition</h3>
+            <p>To determine the percent composition of a compound:</p>
+            <ol>
+                <li>Identify the elements present.</li>
+                <li>Determine the atomic mass of each element.</li>
+                <li>Calculate the total molar mass of the compound.</li>
+                <li>Divide the total mass of each element by the molar mass of the compound and multiply by 100.</li>
+            </ol>
+            <p>The sum of all individual percentages must equal 100%.</p>
 
-            <h3>How to calculate mass percent of a compound</h3>
-            <p>The mass percent calculator accommodates all the different situations where the mass percentage can be found, based on mass percent equations:</p>
-            <ul>
-                <li>The mass percentage of solute in a solution.</li>
-                <li>The mass percentage of a component of a compound or mixture.</li>
-            </ul>
-            <p>It also has the added benefit of calculating percent composition for your convenience.</p>
-
-            <p>You need the formula for the mass percentage for a solute in a solution when you are studying the solution and its components. In other words, you want to find the amount of solute. In this case, you need to know:</p>
-            <ul>
-                <li>The amount of solute in grams; and</li>
-                <li>The amount of solvent in grams.</li>
-            </ul>
-            <p>As the result, you will obtain the mass percentage of solute in the solution, expressed as %.</p>
-
-            <h4>🔎 Mass of solution</h4>
-            <p>In case you do not have the mass of a solvent, you need not worry. All you have to do is enter the total Mass of solution in the designated field of the calculator and input the mass of the solution directly.</p>
-
-            <p>It would be best to use the second mass percent equation to calculate the mass percent of a component in a mixture. Now you need to provide:</p>
-            <ul>
-                <li>The mass of component; and</li>
-                <li>The total mass of compound.</li>
-            </ul>
-            <p>Which gives you the mass percentage of the component in the compound, again, expressed as %.</p>
-
-            <h4>Percent Composition</h4>
-            <p>The third option is to determine the percent composition of a mixture. You need to input:</p>
-            <ul>
-                <li>The number of atoms of each element in a mixture - select the relevant atom from the options given. For instance, for H2O, you select H and input 2, then choose O and input 1. The result would be 11.2% and 88.8%, respectively.</li>
-            </ul>
-            <p>Note, that the individual percentages sum up to 100%.</p>
-            <p>You may input values for a mixture with up to 6 elements in it.</p>
-            <p>As a result, you obtain the percent composition as a percentage for each element of the mixture.</p>
-
-            <p>For example, the query is: "How do you find the mass percent of the solute in a solution of hydrochloric acid and water, where the amount of hydrochloric acid is 43 grams, and water is 200 grams?"</p>
-            <p>In other words, the amount of solute is 43 g, and the solvent is 200 g.</p>
-            <p>First, calculate the total mass of the solution, 243 g. Then find the mass percentage by dividing solute mass by the total mass and multiplying by 100. Eventually, you obtain the result of 17.695 %.</p>
+            <h3>Example Calculation</h3>
+            <p><strong>Problem:</strong> Calculate the mass percent of hydrochloric acid (HCl) in a solution containing 43 g of HCl and 200 g of water.</p>
+            <p><strong>Solution:</strong></p>
+            <ol>
+                <li>Mass of Solute (HCl) = 43 g</li>
+                <li>Mass of Solvent (Water) = 200 g</li>
+                <li>Total Mass of Solution = 43 g + 200 g = 243 g</li>
+                <li>Mass Percent = (43 / 243) × 100 ≈ 17.70%</li>
+            </ol>
         </div>
     `,
     generateHTML: function() {
