@@ -1,4 +1,5 @@
 import { createCalculatorLayout, animateReveal } from './utils.js';
+import { calculateTimePercentage } from './mathUtils.js';
 
 export const mathCalculators = {
   icon: "icon-math",
@@ -193,33 +194,20 @@ export const mathCalculators = {
                 "time-percentage-result"
               );
 
-              if (isNaN(totalTime) || isNaN(elapsedTime)) {
-                resultDiv.innerHTML = "Please enter valid numbers";
-                return;
+              try {
+                const { percentageElapsed, percentageRemaining } = calculateTimePercentage(totalTime, elapsedTime);
+
+                let result = `Elapsed: <strong>${percentageElapsed.toFixed(
+                  2
+                )}%</strong><br>`;
+                result += `Remaining: <strong>${percentageRemaining.toFixed(
+                  2
+                )}%</strong>`;
+
+                resultDiv.innerHTML = result;
+              } catch (error) {
+                resultDiv.innerHTML = error.message;
               }
-
-              if (totalTime <= 0) {
-                resultDiv.innerHTML = "Total time must be greater than zero";
-                return;
-              }
-
-              if (elapsedTime < 0 || elapsedTime > totalTime) {
-                resultDiv.innerHTML =
-                  "Elapsed time must be between 0 and total time";
-                return;
-              }
-
-              const percentageElapsed = (elapsedTime / totalTime) * 100;
-              const percentageRemaining = 100 - percentageElapsed;
-
-              let result = `Elapsed: <strong>${percentageElapsed.toFixed(
-                2
-              )}%</strong><br>`;
-              result += `Remaining: <strong>${percentageRemaining.toFixed(
-                2
-              )}%</strong>`;
-
-              resultDiv.innerHTML = result;
             });
         },
       },
