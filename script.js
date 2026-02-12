@@ -1183,6 +1183,10 @@ function loadCalculator(category, subcategory, id) {
   currentCalculatorId = id;
   pageTitle.textContent = calc.name;
 
+  // Show Top Bar (was hidden on home page)
+  const topBar = document.querySelector(".top-bar");
+  if (topBar) topBar.classList.remove("hidden");
+
   // Close mobile sidebar
   sidebar.classList.remove("active");
 
@@ -1191,14 +1195,84 @@ function loadCalculator(category, subcategory, id) {
   calc.attachEvents();
 }
 
-// Mobile Menu Toggle
-mobileMenuBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("active");
-});
+// Mobile Menu Toggle & Draggable Logic
+let isDraggingButton = false;
+
+function makeDraggable(element) {
+    let startX, startY, startLeft, startTop;
+
+    function onMouseDown(e) {
+        // Only trigger for left mouse button or touch
+        if (e.type === 'mousedown' && e.button !== 0) return;
+
+        isDraggingButton = false;
+        startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        startY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+
+        const rect = element.getBoundingClientRect();
+        startLeft = rect.left;
+        startTop = rect.top;
+
+        // Don't prevent default on touchstart immediately, or click won't fire?
+        // Actually for dragging we might want to prevent scroll.
+        // We set touch-action: none in CSS, so browser handles scroll prevention.
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        document.addEventListener('touchmove', onMouseMove, { passive: false });
+        document.addEventListener('touchend', onMouseUp);
+    }
+
+    function onMouseMove(e) {
+        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+
+        // Threshold to consider it a drag
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            isDraggingButton = true;
+            element.style.left = `${startLeft + dx}px`;
+            element.style.top = `${startTop + dy}px`;
+            element.style.bottom = 'auto';
+            element.style.right = 'auto';
+            element.style.transform = 'none'; // Ensure no transform interferes
+        }
+    }
+
+    function onMouseUp(e) {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        document.removeEventListener('touchmove', onMouseMove);
+        document.removeEventListener('touchend', onMouseUp);
+
+        // Reset flag after a short delay to allow click event to process
+        setTimeout(() => { isDraggingButton = false; }, 100);
+    }
+
+    element.addEventListener('mousedown', onMouseDown);
+    element.addEventListener('touchstart', onMouseDown);
+}
+
+// Initialize Draggable
+if (mobileMenuBtn) {
+    makeDraggable(mobileMenuBtn);
+
+    mobileMenuBtn.addEventListener("click", (e) => {
+        if (isDraggingButton) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        sidebar.classList.toggle("active");
+    });
+}
 
 // Close sidebar when clicking outside on mobile
 document.addEventListener("click", (e) => {
     if (window.innerWidth <= 900) {
+        // Check if click target is not sidebar and not the menu button
         if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains("active")) {
             sidebar.classList.remove("active");
         }
@@ -1208,4 +1282,10 @@ document.addEventListener("click", (e) => {
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
     renderSidebar();
+
+    // Hide top bar initially on home page
+    const topBar = document.querySelector(".top-bar");
+    if (topBar) {
+        topBar.classList.add("hidden");
+    }
 });
