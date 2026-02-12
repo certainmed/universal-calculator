@@ -7,120 +7,63 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Header section -->
-    <header>
-      <h1>✨ Universal Calculator ✨</h1>
-      <p>Your one-stop solution for all calculation needs</p>
-    </header>
+    <!-- SVG Sprite Sheet -->
+    <svg style="display: none;">
+      <symbol id="icon-menu" viewBox="0 0 24 24">
+        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24">
+        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-calc" viewBox="0 0 24 24">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z" fill="currentColor"/>
+        <path d="M7 7h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zM7 11h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2zM7 15h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-math" viewBox="0 0 24 24">
+        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14h-2v-4H6v-2h4V7h2v4h4v2h-4v4z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-physics" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
+        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-converter" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V8h2v4zm4 4h-2v-2h2v2zm0-4h-2V8h2v4z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+      </symbol>
+    </svg>
 
-    <!-- Main content area -->
-    <main>
-      <!-- Category navigation -->
-      <nav class="category-nav">
-        <ul>
-          <li>
-            <button class="category-btn active" data-category="math">
-              🧮 Math Calculators
-            </button>
-          </li>
-          <li>
-            <button class="category-btn" data-category="physics">
-              🔭 Physics Calculators
-            </button>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Calculator sections -->
-      <section id="math-calculators" class="calculator-section active">
-        <!-- Sub-categories for math -->
-        <nav class="sub-category-nav">
-          <ul>
-            <li>
-              <button
-                class="sub-category-btn active"
-                data-subcategory="percentage"
-              >
-                📊 Percentage
-              </button>
-            </li>
-            <li>
-              <button class="sub-category-btn" data-subcategory="algebra">
-                📈 Algebra
-              </button>
-            </li>
-            <li>
-              <button class="sub-category-btn" data-subcategory="arithmetic">
-                🔢 Arithmetic
-              </button>
-            </li>
-          </ul>
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="logo">
+          <svg class="icon-logo"><use href="#icon-calc"></use></svg>
+          <span>Universal Calculator</span>
+        </div>
+        <nav id="sidebar-nav" class="nav-menu">
+          <!-- Navigation will be injected here by JS -->
         </nav>
+      </aside>
 
-        <!-- Individual calculator containers -->
-        <div id="percentage-calculators" class="calculators-container active">
-          <!-- Percentage calculators will be dynamically added here -->
+      <!-- Main Content -->
+      <main class="content-area">
+        <header class="top-bar">
+          <button id="mobile-menu-btn" aria-label="Toggle Menu">
+            <svg class="icon"><use href="#icon-menu"></use></svg>
+          </button>
+          <h1 id="page-title">Welcome</h1>
+        </header>
+
+        <div id="calculator-display">
+          <div class="welcome-screen">
+            <h2>Select a Tool</h2>
+            <p>Choose a calculator from the sidebar to get started.</p>
+          </div>
         </div>
-
-        <div id="algebra-calculators" class="calculators-container">
-          <!-- Algebra calculators will be dynamically added here -->
-        </div>
-
-        <div id="arithmetic-calculators" class="calculators-container">
-          <!-- Arithmetic calculators will be dynamically added here -->
-        </div>
-      </section>
-
-      <section id="physics-calculators" class="calculator-section">
-        <!-- Sub-categories for physics -->
-        <nav class="sub-category-nav">
-          <ul>
-            <li>
-              <button
-                class="sub-category-btn active"
-                data-subcategory="kinematics"
-              >
-                🚀 Kinematics
-              </button>
-            </li>
-            <li>
-              <button class="sub-category-btn" data-subcategory="dynamics">
-                💪 Dynamics
-              </button>
-            </li>
-          </ul>
-        </nav>
-
-        <!-- Individual calculator containers -->
-        <div id="kinematics-calculators" class="calculators-container active">
-          <!-- Kinematics calculators will be dynamically added here -->
-        </div>
-
-        <div id="dynamics-calculators" class="calculators-container">
-          <!-- Dynamics calculators will be dynamically added here -->
-        </div>
-      </section>
-    </main>
-
-    <!-- Calculator display area -->
-    <div id="calculator-display">
-      <div id="calculator-content">
-        <!-- This area will dynamically show the selected calculator -->
-        <h2>Welcome to Universal Calculator 🌟</h2>
-        <p>
-          Please select a calculator from the menu to begin your calculations.
-          We offer a wide range of mathematical and physics calculators to help
-          you solve problems quickly and accurately.
-        </p>
-      </div>
+      </main>
     </div>
 
-    <!-- Footer section -->
-    <footer>
-      <p>&copy; 2025 Universal Calculator. All rights reserved.</p>
-    </footer>
-
-    <!-- JavaScript for calculator functionality -->
     <script src="script.js"></script>
   </body>
 </html>
