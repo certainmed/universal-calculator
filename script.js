@@ -213,66 +213,279 @@ const calculators = {
           id: "quadratic-equation-calculator",
           name: "Quadratic Equation",
           description:
-            "Solve quadratic equations in the form ax² + bx + c = 0.",
+            "Solve quadratic equations using Standard, Vertex, or Factored forms.",
           generateHTML: function () {
+            const educationalText = `
+              <div class="educational-section" style="margin-top: 3rem; border-top: 1px solid var(--border-color); padding-top: 2rem;">
+                <h3>What is the quadratic formula?</h3>
+                <p>The quadratic formula is the solution of a second-degree polynomial equation of the following form:</p>
+                <p><strong>Ax² + Bx + C = 0</strong></p>
+                <p>If you can rewrite your equation in this form, it means that it can be solved with the quadratic formula. A solution to this equation is also called a root of the equation.</p>
+                <p>The quadratic formula is as follows:</p>
+                <p><strong>x = (-B ± √Δ)/2A</strong></p>
+                <p>where:</p>
+                <p><strong>Δ = B² – 4AC</strong></p>
+                <p>Using this formula, you can find the solutions to any quadratic equation. Note that there are three possible options for obtaining a result:</p>
+                <ul>
+                  <li>The quadratic equation has two unique roots when Δ > 0. Then, the first solution of the quadratic formula is x₁ = (-B + √Δ)/2A, and the second is x₂ = (-B – √Δ)/2A.</li>
+                  <li>The quadratic equation has only one root when Δ = 0. The solution is equal to x = -B/2A. It is sometimes called a repeated or double root.</li>
+                  <li>The quadratic equation has no real solutions for Δ < 0.</li>
+                </ul>
+                <p>You can also graph the function y = Ax² + Bx + C. Its shape is a parabola, and the roots of the quadratic equation are the x-intercepts of this function.</p>
+
+                <h3 style="margin-top: 1.5rem;">Coefficients of a quadratic equation</h3>
+                <p>A, B, and C are the coefficients of the quadratic equation. They are all real numbers, not dependent on x. If A = 0, then the equation is not quadratic, but linear.</p>
+                <p>If B² < 4AC, then the discriminant Δ will be negative. It means that such an equation has no real roots.</p>
+
+                <h4 style="margin-top: 1rem;">How to use the quadratic formula solver</h4>
+                <p>Write down your equation. Let's assume it is 4x² + 3x – 7 = -4 – x.</p>
+                <p>Bring the equation to the form Ax² + Bx + C = 0. In this example, we will do it in the following steps:</p>
+                <ol>
+                  <li>4x² + 3x - 7 = -4 – x</li>
+                  <li>4x² + (3 + 1)x + (-7 + 4) = 0</li>
+                  <li>4x² + 4x - 3 = 0</li>
+                </ol>
+                <p>Calculate the discriminant.</p>
+                <p>Δ = B² – 4AC = 4² - 4×4×(-3) = 16 + 48 = 64.</p>
+                <p>Decide whether the discriminant is greater, equal, or lower than 0. In our case, the discriminant is greater than 0, which means that this equation has two unique roots.</p>
+                <p>Calculate the two roots using the quadratic formula.</p>
+                <p>x₁ = (-B + √Δ)/2A = (-4 +√64) / (2×4) = (-4 + 8) / 8 = 4/8 = 0.5</p>
+                <p>x₂ = (-B – √Δ)/2A = (-4 -√64) / (2×4) = (-4 – 8) / 8 = -12/8 = -1.5</p>
+                <p>The roots of your equation are x₁ = 0.5 and x₂ = -1.5.</p>
+
+                <h3 style="margin-top: 1.5rem;">Solving quadratic equations with a negative discriminant</h3>
+                <p>Even though the quadratic formula calculator indicates when the equation has no real roots, it is possible to find the solution of a quadratic equation with a negative discriminant. These roots will be complex numbers.</p>
+                <p>Each complex number is a sum of real and imaginary parts. The imaginary part is always equal to the number i = √(-1) multiplied by a real number.</p>
+                <p>The quadratic formula remains the same in this case.</p>
+                <p><strong>x = (-B ± √Δ)/2A</strong></p>
+                <p>Notice that, as Δ < 0, the square root of the discriminant will be an imaginary value. Hence:</p>
+                <p>Re(x) = -B/2A</p>
+                <p>Im(x) = ± (√Δ)/2A</p>
+              </div>
+            `;
+
+            const formSelector = `
+              <div class="form-group">
+                <label>Formula Form:</label>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                  <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; white-space: nowrap;">
+                    <input type="radio" name="quad-form" value="standard" checked> Ax² + Bx + C = 0
+                  </label>
+                  <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; white-space: nowrap;">
+                    <input type="radio" name="quad-form" value="vertex"> A(x - H)² + K = 0
+                  </label>
+                  <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; white-space: nowrap;">
+                    <input type="radio" name="quad-form" value="factored"> A(x - x₁)(x - x₂) = 0
+                  </label>
+                </div>
+              </div>
+            `;
+
             const inputs = `
-                        <div class="form-group">
-                            <label for="quad-a">a:</label>
-                            <input type="number" id="quad-a" placeholder="Enter coefficient a">
+                        ${formSelector}
+                        <div id="dynamic-inputs">
+                          <!-- Standard Form Inputs (Default) -->
+                          <div class="form-group">
+                              <label for="quad-a">A:</label>
+                              <input type="number" id="quad-a" placeholder="Enter coefficient A">
+                          </div>
+                          <div class="form-group">
+                              <label for="quad-b">B:</label>
+                              <input type="number" id="quad-b" placeholder="Enter coefficient B">
+                          </div>
+                          <div class="form-group">
+                              <label for="quad-c">C:</label>
+                              <input type="number" id="quad-c" placeholder="Enter coefficient C">
+                          </div>
                         </div>
-                        <div class="form-group">
-                            <label for="quad-b">b:</label>
-                            <input type="number" id="quad-b" placeholder="Enter coefficient b">
-                        </div>
-                        <div class="form-group">
-                            <label for="quad-c">c:</label>
-                            <input type="number" id="quad-c" placeholder="Enter coefficient c">
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label style="font-weight: normal; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="allow-complex"> Allow negative discriminant
+                            </label>
                         </div>
                         <button id="calculate-quadratic" class="calculate-btn">Solve</button>
                     `;
-            return createCalculatorLayout(
-              this.name,
-              this.description,
-              inputs,
-              "quadratic-result"
-            );
+
+            return `
+              <div class="calculator-wrapper">
+                  <div class="calculator-inputs">
+                      <h3>Inputs</h3>
+                      <p class="calculator-description">${this.description}</p>
+                      <div class="calculator-form">
+                          ${inputs}
+                      </div>
+                  </div>
+                  <div class="calculator-results">
+                      <h3>Result</h3>
+                      <div id="quadratic-result" class="result-content">
+                          <span style="opacity: 0.5; font-size: 1rem;">Enter values and click Solve</span>
+                      </div>
+                      <div id="quadratic-explanation" style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; font-size: 0.9rem; line-height: 1.6;">
+                      </div>
+                  </div>
+              </div>
+              ${educationalText}
+            `;
           },
           attachEvents: function () {
+            // Form Switching Logic
+            const formRadios = document.querySelectorAll('input[name="quad-form"]');
+            const dynamicInputs = document.getElementById("dynamic-inputs");
+
+            formRadios.forEach(radio => {
+              radio.addEventListener("change", (e) => {
+                const form = e.target.value;
+                let html = "";
+                if (form === "standard") {
+                  html = `
+                    <div class="form-group"><label for="quad-a">A:</label><input type="number" id="quad-a" placeholder="Enter coefficient A"></div>
+                    <div class="form-group"><label for="quad-b">B:</label><input type="number" id="quad-b" placeholder="Enter coefficient B"></div>
+                    <div class="form-group"><label for="quad-c">C:</label><input type="number" id="quad-c" placeholder="Enter coefficient C"></div>
+                  `;
+                } else if (form === "vertex") {
+                  html = `
+                    <div class="form-group"><label for="quad-a">A:</label><input type="number" id="quad-a" placeholder="Enter coefficient A"></div>
+                    <div class="form-group"><label for="quad-h">H (Vertex x):</label><input type="number" id="quad-h" placeholder="Enter H"></div>
+                    <div class="form-group"><label for="quad-k">K (Vertex y):</label><input type="number" id="quad-k" placeholder="Enter K"></div>
+                  `;
+                } else if (form === "factored") {
+                  html = `
+                    <div class="form-group"><label for="quad-a">A:</label><input type="number" id="quad-a" placeholder="Enter coefficient A"></div>
+                    <div class="form-group"><label for="quad-x1">x₁ (First root):</label><input type="number" id="quad-x1" placeholder="Enter x₁"></div>
+                    <div class="form-group"><label for="quad-x2">x₂ (Second root):</label><input type="number" id="quad-x2" placeholder="Enter x₂"></div>
+                  `;
+                }
+                dynamicInputs.innerHTML = html;
+                document.getElementById("quadratic-result").innerHTML = '<span style="opacity: 0.5; font-size: 1rem;">Enter values and click Solve</span>';
+                document.getElementById("quadratic-explanation").innerHTML = '';
+              });
+            });
+
             document
               .getElementById("calculate-quadratic")
               .addEventListener("click", function () {
-                const a = parseFloat(document.getElementById("quad-a").value);
-                const b = parseFloat(document.getElementById("quad-b").value);
-                const c = parseFloat(document.getElementById("quad-c").value);
+                const form = document.querySelector('input[name="quad-form"]:checked').value;
+                const allowComplex = document.getElementById("allow-complex").checked;
                 const resultDiv = document.getElementById("quadratic-result");
+                const explanationDiv = document.getElementById("quadratic-explanation");
 
-                if (isNaN(a) || isNaN(b) || isNaN(c)) {
-                  resultDiv.innerHTML = "Please enter valid coefficients";
-                  return;
-                }
-
-                if (a === 0) {
-                  resultDiv.innerHTML = "Not a quadratic equation (a = 0)";
-                  return;
-                }
-
-                const discriminant = b * b - 4 * a * c;
                 let result = "";
+                let explanation = "";
 
-                if (discriminant > 0) {
-                  const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-                  const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-                  result = `x₁ = <strong>${x1.toFixed(4)}</strong><br>x₂ = <strong>${x2.toFixed(4)}</strong>`;
-                } else if (discriminant === 0) {
-                  const x = -b / (2 * a);
-                  result = `x = <strong>${x.toFixed(4)}</strong> (Double Root)`;
-                } else {
-                  const realPart = -b / (2 * a);
-                  const imaginaryPart = Math.sqrt(Math.abs(discriminant)) / (2 * a);
-                  result = `x₁ = ${realPart.toFixed(4)} + ${imaginaryPart.toFixed(4)}i<br>x₂ = ${realPart.toFixed(4)} - ${imaginaryPart.toFixed(4)}i`;
+                if (form === "standard") {
+                  const a = parseFloat(document.getElementById("quad-a").value);
+                  const b = parseFloat(document.getElementById("quad-b").value);
+                  const c = parseFloat(document.getElementById("quad-c").value);
+
+                  if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                    resultDiv.innerHTML = "Please enter valid coefficients";
+                    return;
+                  }
+                  if (a === 0) {
+                    resultDiv.innerHTML = "Not a quadratic equation (A = 0)";
+                    return;
+                  }
+
+                  const discriminant = b * b - 4 * a * c;
+                  explanation += `<strong>Step 1: Identify coefficients</strong><br>A = ${a}, B = ${b}, C = ${c}<br><br>`;
+                  explanation += `<strong>Step 2: Calculate Discriminant (Δ)</strong><br>Δ = B² - 4AC<br>Δ = (${b})² - 4(${a})(${c})<br>Δ = ${b*b} - ${4*a*c}<br>Δ = ${discriminant}<br><br>`;
+
+                  if (discriminant > 0) {
+                    const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                    const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                    result = `x₁ = <strong>${x1.toFixed(4)}</strong><br>x₂ = <strong>${x2.toFixed(4)}</strong>`;
+                    explanation += `<strong>Step 3: Apply Quadratic Formula</strong><br>Since Δ > 0, there are two real roots.<br>x = (-B ± √Δ) / 2A<br>x = (-(${b}) ± √${discriminant}) / (2 × ${a})<br><br>`;
+                    explanation += `x₁ = (${-b} + ${Math.sqrt(discriminant).toFixed(4)}) / ${2*a} = <strong>${x1.toFixed(4)}</strong><br>`;
+                    explanation += `x₂ = (${-b} - ${Math.sqrt(discriminant).toFixed(4)}) / ${2*a} = <strong>${x2.toFixed(4)}</strong>`;
+                  } else if (discriminant === 0) {
+                    const x = -b / (2 * a);
+                    result = `x = <strong>${x.toFixed(4)}</strong> (Double Root)`;
+                    explanation += `<strong>Step 3: Apply Quadratic Formula</strong><br>Since Δ = 0, there is one repeated real root.<br>x = -B / 2A<br>x = -(${b}) / (2 × ${a})<br>x = ${-b} / ${2*a}<br>x = <strong>${x.toFixed(4)}</strong>`;
+                  } else {
+                    if (allowComplex) {
+                        const realPart = -b / (2 * a);
+                        const imaginaryPart = Math.sqrt(Math.abs(discriminant)) / (2 * a);
+                        result = `x₁ = ${realPart.toFixed(4)} + ${imaginaryPart.toFixed(4)}i<br>x₂ = ${realPart.toFixed(4)} - ${imaginaryPart.toFixed(4)}i`;
+                        explanation += `<strong>Step 3: Apply Quadratic Formula</strong><br>Since Δ < 0, the roots are complex.<br>x = (-B ± √Δ) / 2A<br>x = (-(${b}) ± √${discriminant}) / (2 × ${a})<br><br>`;
+                        explanation += `Real Part: -B / 2A = ${realPart.toFixed(4)}<br>`;
+                        explanation += `Imaginary Part: √|Δ| / 2A = √${Math.abs(discriminant)} / ${2*a} = ${imaginaryPart.toFixed(4)}i<br>`;
+                    } else {
+                        result = "No real roots (Δ < 0)";
+                        explanation += `<strong>Step 3: Analyze Discriminant</strong><br>Since Δ < 0, there are no real roots for this equation.<br>Enable "Allow negative discriminant" to see complex solutions.`;
+                    }
+                  }
+
+                } else if (form === "vertex") {
+                    const a = parseFloat(document.getElementById("quad-a").value);
+                    const h = parseFloat(document.getElementById("quad-h").value);
+                    const k = parseFloat(document.getElementById("quad-k").value);
+
+                    if (isNaN(a) || isNaN(h) || isNaN(k)) {
+                        resultDiv.innerHTML = "Please enter valid values";
+                        return;
+                    }
+                    if (a === 0) {
+                        resultDiv.innerHTML = "A cannot be 0";
+                        return;
+                    }
+
+                    // Equation: A(x - H)^2 + K = 0
+                    // (x - H)^2 = -K/A
+                    explanation += `<strong>Step 1: Set up the equation</strong><br>${a}(x - ${h})² + ${k} = 0<br><br>`;
+                    explanation += `<strong>Step 2: Isolate the squared term</strong><br>${a}(x - ${h})² = -${k}<br>(x - ${h})² = ${-k}/${a}<br>`;
+
+                    const rightSide = -k / a;
+                    explanation += `(x - ${h})² = ${rightSide}<br><br>`;
+
+                    if (rightSide > 0) {
+                        const sqrtVal = Math.sqrt(rightSide);
+                        const x1 = h + sqrtVal;
+                        const x2 = h - sqrtVal;
+                        result = `x₁ = <strong>${x1.toFixed(4)}</strong><br>x₂ = <strong>${x2.toFixed(4)}</strong>`;
+                        explanation += `<strong>Step 3: Take the square root</strong><br>x - ${h} = ±√${rightSide}<br>x - ${h} = ±${sqrtVal.toFixed(4)}<br><br>`;
+                        explanation += `<strong>Step 4: Solve for x</strong><br>x = ${h} ± ${sqrtVal.toFixed(4)}<br>`;
+                        explanation += `x₁ = ${h} + ${sqrtVal.toFixed(4)} = <strong>${x1.toFixed(4)}</strong><br>`;
+                        explanation += `x₂ = ${h} - ${sqrtVal.toFixed(4)} = <strong>${x2.toFixed(4)}</strong>`;
+                    } else if (rightSide === 0) {
+                        const x = h;
+                        result = `x = <strong>${x.toFixed(4)}</strong>`;
+                        explanation += `<strong>Step 3: Solve for x</strong><br>(x - ${h})² = 0 implies x - ${h} = 0<br>x = <strong>${h}</strong>`;
+                    } else {
+                         if (allowComplex) {
+                             const sqrtVal = Math.sqrt(Math.abs(rightSide));
+                             result = `x₁ = ${h} + ${sqrtVal.toFixed(4)}i<br>x₂ = ${h} - ${sqrtVal.toFixed(4)}i`;
+                             explanation += `<strong>Step 3: Take the square root</strong><br>Since the right side is negative, we use imaginary numbers.<br>x - ${h} = ±√${rightSide}<br>x - ${h} = ±${sqrtVal.toFixed(4)}i<br><br>`;
+                             explanation += `<strong>Step 4: Solve for x</strong><br>x = ${h} ± ${sqrtVal.toFixed(4)}i`;
+                         } else {
+                             result = "No real roots";
+                             explanation += `<strong>Step 3: Analyze</strong><br>Since (x - ${h})² equals a negative number (${rightSide}), there are no real solutions.`;
+                         }
+                    }
+
+                } else if (form === "factored") {
+                    const a = parseFloat(document.getElementById("quad-a").value);
+                    const x1 = parseFloat(document.getElementById("quad-x1").value);
+                    const x2 = parseFloat(document.getElementById("quad-x2").value);
+
+                    if (isNaN(a) || isNaN(x1) || isNaN(x2)) {
+                        resultDiv.innerHTML = "Please enter valid values";
+                        return;
+                    }
+                    if (a === 0) {
+                        resultDiv.innerHTML = "A cannot be 0";
+                        return;
+                    }
+
+                    // Roots are directly x1 and x2
+                    result = `x₁ = <strong>${x1}</strong><br>x₂ = <strong>${x2}</strong>`;
+                    explanation += `<strong>Step 1: Analyze the Factored Form</strong><br>Equation: ${a}(x - ${x1})(x - ${x2}) = 0<br><br>`;
+                    explanation += `<strong>Step 2: Zero Product Property</strong><br>If the product of factors is zero, at least one of the factors must be zero.<br>`;
+                    explanation += `Either (x - ${x1}) = 0  OR  (x - ${x2}) = 0<br><br>`;
+                    explanation += `<strong>Step 3: Solve for x</strong><br>x = ${x1}<br>x = ${x2}`;
                 }
 
                 resultDiv.innerHTML = result;
+                explanationDiv.innerHTML = explanation;
               });
           },
         },
