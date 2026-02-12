@@ -15,24 +15,24 @@ export const convertersCalculators = {
                 <ul style="list-style: none; padding: 0;">
                     <li style="margin-bottom: 1rem;">
                         <strong>What is the difference between are and acre?</strong><br>
-                        One <strong>are</strong> is equal to 100 m² (10m x 10m), while one <strong>acre</strong> equals approx. 4,047 m². <br>
-                        To convert acres to ares, multiply by <strong>40.4686</strong>. <br>
-                        <em>e.g., 6 acres ≈ 242.81 ares.</em>
+                        One <strong>are</strong> is equal to \\( 100 \\, \\text{m}^2 \\) (\\( 10\\text{m} \\times 10\\text{m} \\)), while one <strong>acre</strong> equals approx. \\( 4,047 \\, \\text{m}^2 \\). <br>
+                        To convert acres to ares, multiply by \\( 40.4686 \\). <br>
+                        <em>e.g., \\( 6 \\text{ acres} \\approx 242.81 \\text{ ares} \\).</em>
                     </li>
                     <li style="margin-bottom: 1rem;">
                         <strong>How many square feet are in an acre?</strong><br>
-                        One acre is <strong>43,560 ft²</strong>.<br>
-                        <em>e.g., 0.25 acres = 10,890 ft².</em>
+                        One acre is \\( 43,560 \\, \\text{ft}^2 \\).<br>
+                        <em>e.g., \\( 0.25 \\text{ acres} = 10,890 \\, \\text{ft}^2 \\).</em>
                     </li>
                     <li style="margin-bottom: 1rem;">
                         <strong>How many square miles are in an acre?</strong><br>
-                        There are <strong>0.0015625 mi²</strong> in 1 acre.<br>
-                        <em>e.g., 8 acres = 0.0125 mi².</em>
+                        There are \\( 0.0015625 \\, \\text{mi}^2 \\) in 1 acre.<br>
+                        <em>e.g., \\( 8 \\text{ acres} = 0.0125 \\, \\text{mi}^2 \\).</em>
                     </li>
                     <li style="margin-bottom: 1rem;">
                         <strong>What is 50 m² in yd²?</strong><br>
-                        Multiply m² by <strong>1.19599</strong>.<br>
-                        <em>e.g., 50 m² ≈ 59.8 yd².</em>
+                        Multiply \\( \\text{m}^2 \\) by \\( 1.19599 \\).<br>
+                        <em>e.g., \\( 50 \\, \\text{m}^2 \\approx 59.8 \\, \\text{yd}^2 \\).</em>
                     </li>
                 </ul>
             </div>

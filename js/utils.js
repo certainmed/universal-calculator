@@ -41,6 +41,30 @@ export function createCalculatorLayout(title, description, inputsHTML, resultId,
 }
 
 /**
+ * HOW TO ADD EDUCATIONAL CONTENT WITH LATEX:
+ *
+ * 1. In your calculator object (e.g., in js/math.js), add an `educationalHTML` property.
+ * 2. Use backticks (`) for the string to allow multi-line HTML.
+ * 3. Wrap your LaTeX formulas in:
+ *    - `\( ... \)` for inline math (e.g., inside a sentence).
+ *    - `\[ ... \]` for block math (displayed on its own line).
+ * 4. Example:
+ *    educationalHTML: `
+ *      <p>The formula is \( E = mc^2 \).</p>
+ *      <p>Quadratic formula:</p>
+ *      \[ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
+ *    `
+ * 5. In `generateHTML`, ensure you pass `true` as the last argument to `createCalculatorLayout`.
+ * 6. In `attachEvents`, add the event listener for the "What is this?" button:
+ *    const btn = document.getElementById("what-is-this-btn");
+ *    if (btn) {
+ *        btn.addEventListener("click", () => {
+ *            animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+ *        });
+ *    }
+ */
+
+/**
  * Animate the reveal of educational content safely and quickly.
  * It reveals top-level elements one by one with a fade/slide effect.
  * @param {string} htmlContent - The HTML content to reveal.
@@ -88,6 +112,15 @@ export async function animateReveal(htmlContent, container) {
             await new Promise(r => setTimeout(r, 50));
         } else {
              // Text nodes appear instantly
+        }
+    }
+
+    // Typeset LaTeX if MathJax is available
+    if (window.MathJax) {
+        try {
+            await window.MathJax.typesetPromise([container]);
+        } catch (e) {
+            console.error("MathJax typesetting failed:", e);
         }
     }
 }

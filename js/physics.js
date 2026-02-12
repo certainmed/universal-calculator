@@ -1,4 +1,4 @@
-import { createCalculatorLayout } from './utils.js';
+import { createCalculatorLayout, animateReveal } from './utils.js';
 
 export const physicsCalculators = {
   icon: "icon-physics",
@@ -9,6 +9,22 @@ export const physicsCalculators = {
         id: "projectile-motion-calculator",
         name: "Projectile Motion",
         description: "Calculate key parameters of projectile motion.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>Projectile motion is a form of motion experienced by an object or particle that is projected near the Earth's surface and moves along a curved path under the action of gravity only.</p>
+                <p>The horizontal motion is constant velocity:</p>
+                \\[ x(t) = v_0 \\cos(\\theta) t \\]
+                <p>The vertical motion is constant acceleration (gravity):</p>
+                \\[ y(t) = h_0 + v_0 \\sin(\\theta) t - \\frac{1}{2}gt^2 \\]
+                <p>Where:</p>
+                <ul>
+                    <li>\\( v_0 \\) is the initial velocity.</li>
+                    <li>\\( \\theta \\) is the launch angle.</li>
+                    <li>\\( h_0 \\) is the initial height.</li>
+                    <li>\\( g \\) is the acceleration due to gravity (approx. \\( 9.81 \\, \\text{m/s}^2 \\)).</li>
+                </ul>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -25,16 +41,21 @@ export const physicsCalculators = {
                         </div>
                         <button id="calculate-projectile" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "projectile-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-projectile")
             .addEventListener("click", function () {
@@ -84,6 +105,16 @@ export const physicsCalculators = {
         id: "free-fall-calculator",
         name: "Free Fall Calculator",
         description: "Calculate parameters for objects falling under gravity.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>Free fall is any motion of a body where gravity is the only force acting upon it.</p>
+                <p>The time \\( t \\) to fall from a height \\( h \\) is:</p>
+                \\[ t = \\sqrt{\\frac{2h}{g}} \\]
+                <p>The final velocity \\( v \\) at impact is:</p>
+                \\[ v = gt = \\sqrt{2gh} \\]
+                <p>Where \\( g \\approx 9.81 \\, \\text{m/s}^2 \\).</p>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -96,16 +127,21 @@ export const physicsCalculators = {
                         </div>
                         <button id="calculate-free-fall" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "free-fall-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-free-fall")
             .addEventListener("click", function () {
@@ -147,6 +183,13 @@ export const physicsCalculators = {
         id: "force-calculator",
         name: "Force Calculator",
         description: "Calculate force using Newton's Second Law: F = ma.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>Newton's Second Law of Motion states that the force \\( F \\) acting on an object is equal to the mass \\( m \\) of that object times its acceleration \\( a \\).</p>
+                \\[ F = ma \\]
+                <p>Force is measured in Newtons (N), mass in kilograms (kg), and acceleration in meters per second squared (m/s²).</p>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -159,16 +202,21 @@ export const physicsCalculators = {
                         </div>
                         <button id="calculate-force" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "force-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-force")
             .addEventListener("click", function () {
@@ -194,6 +242,19 @@ export const physicsCalculators = {
         id: "gravitational-force-calculator",
         name: "Gravitational Force",
         description: "Calculate gravitational force between two masses.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>Newton's law of universal gravitation states that every particle attracts every other particle in the universe with a force.</p>
+                \\[ F = G \\frac{m_1 m_2}{r^2} \\]
+                <p>Where:</p>
+                <ul>
+                    <li>\\( F \\) is the gravitational force.</li>
+                    <li>\\( G \\) is the gravitational constant (\\( 6.67430 \\times 10^{-11} \\, \\text{N} \\cdot \\text{m}^2/\\text{kg}^2 \\)).</li>
+                    <li>\\( m_1 \\) and \\( m_2 \\) are the masses of the objects.</li>
+                    <li>\\( r \\) is the distance between the centers of the two masses.</li>
+                </ul>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -210,16 +271,21 @@ export const physicsCalculators = {
                         </div>
                         <button id="calculate-gravity" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "gravity-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-gravity")
             .addEventListener("click", function () {

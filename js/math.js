@@ -13,9 +13,9 @@ export const mathCalculators = {
         // specific to this calculator:
         educationalHTML: `
             <div class="educational-section">
-                <p>To find the percentage of a number:</p>
-                <p><strong>(Value × Percentage) / 100</strong></p>
-                <p>Example: 20% of 50 is (50 × 20) / 100 = 10.</p>
+                <p>To find the percentage of a number, use the formula:</p>
+                \\[ \\text{Result} = \\frac{\\text{Value} \\times \\text{Percentage}}{100} \\]
+                <p>Example: 20% of 50 is \\( \\frac{50 \\times 20}{100} = 10 \\).</p>
             </div>
         `,
         generateHTML: function () {
@@ -30,17 +30,21 @@ export const mathCalculators = {
                         </div>
                         <button id="calculate-percentage" class="calculate-btn">Calculate</button>
                     `;
-          // Placeholder for educational content
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "percentage-result",
-            false // No "What is this?" button yet as per instructions (or maybe simple placeholder?)
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-percentage")
             .addEventListener("click", function () {
@@ -69,6 +73,13 @@ export const mathCalculators = {
         name: "Percent Error Calculator",
         description:
           "Calculate the percentage error between a measured value and the actual value.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>The percentage error is the difference between an approximate or measured value and an exact or known value.</p>
+                <p>The formula is:</p>
+                \\[ \\text{Percent Error} = \\left| \\frac{\\text{Measured} - \\text{Actual}}{\\text{Actual}} \\right| \\times 100\\% \\]
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -81,16 +92,21 @@ export const mathCalculators = {
                         </div>
                         <button id="calculate-percent-error" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "percent-error-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-percent-error")
             .addEventListener("click", function () {
@@ -126,6 +142,14 @@ export const mathCalculators = {
         id: "time-percentage-calculator",
         name: "Time Percentage Calculator",
         description: "Calculate the percentage of time elapsed or remaining.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>To calculate the percentage of time elapsed:</p>
+                \\[ \\text{Percentage Elapsed} = \\frac{\\text{Elapsed Time}}{\\text{Total Time}} \\times 100\\% \\]
+                <p>To calculate the percentage of time remaining:</p>
+                \\[ \\text{Percentage Remaining} = 100\\% - \\text{Percentage Elapsed} \\]
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -138,16 +162,21 @@ export const mathCalculators = {
                         </div>
                         <button id="calculate-time-percentage" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "time-percentage-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-time-percentage")
             .addEventListener("click", function () {
@@ -202,48 +231,48 @@ export const mathCalculators = {
               <div class="educational-section">
                 <h3>What is the quadratic formula?</h3>
                 <p>The quadratic formula is the solution of a second-degree polynomial equation of the following form:</p>
-                <p><strong>Ax² + Bx + C = 0</strong></p>
+                \\[ Ax^2 + Bx + C = 0 \\]
                 <p>If you can rewrite your equation in this form, it means that it can be solved with the quadratic formula. A solution to this equation is also called a root of the equation.</p>
                 <p>The quadratic formula is as follows:</p>
-                <p><strong>x = (-B ± √Δ)/2A</strong></p>
+                \\[ x = \\frac{-B \\pm \\sqrt{\\Delta}}{2A} \\]
                 <p>where:</p>
-                <p><strong>Δ = B² – 4AC</strong></p>
+                \\[ \\Delta = B^2 - 4AC \\]
                 <p>Using this formula, you can find the solutions to any quadratic equation. Note that there are three possible options for obtaining a result:</p>
                 <ul>
-                  <li>The quadratic equation has two unique roots when Δ > 0. Then, the first solution of the quadratic formula is x₁ = (-B + √Δ)/2A, and the second is x₂ = (-B – √Δ)/2A.</li>
-                  <li>The quadratic equation has only one root when Δ = 0. The solution is equal to x = -B/2A. It is sometimes called a repeated or double root.</li>
-                  <li>The quadratic equation has no real solutions for Δ < 0.</li>
+                  <li>The quadratic equation has two unique roots when \\( \\Delta > 0 \\). Then, the first solution of the quadratic formula is \\( x_1 = \\frac{-B + \\sqrt{\\Delta}}{2A} \\), and the second is \\( x_2 = \\frac{-B - \\sqrt{\\Delta}}{2A} \\).</li>
+                  <li>The quadratic equation has only one root when \\( \\Delta = 0 \\). The solution is equal to \\( x = \\frac{-B}{2A} \\). It is sometimes called a repeated or double root.</li>
+                  <li>The quadratic equation has no real solutions for \\( \\Delta < 0 \\).</li>
                 </ul>
-                <p>You can also graph the function y = Ax² + Bx + C. Its shape is a parabola, and the roots of the quadratic equation are the x-intercepts of this function.</p>
+                <p>You can also graph the function \\( y = Ax^2 + Bx + C \\). Its shape is a parabola, and the roots of the quadratic equation are the x-intercepts of this function.</p>
 
                 <h3 style="margin-top: 1.5rem;">Coefficients of a quadratic equation</h3>
-                <p>A, B, and C are the coefficients of the quadratic equation. They are all real numbers, not dependent on x. If A = 0, then the equation is not quadratic, but linear.</p>
-                <p>If B² < 4AC, then the discriminant Δ will be negative. It means that such an equation has no real roots.</p>
+                <p>\\( A \\), \\( B \\), and \\( C \\) are the coefficients of the quadratic equation. They are all real numbers, not dependent on \\( x \\). If \\( A = 0 \\), then the equation is not quadratic, but linear.</p>
+                <p>If \\( B^2 < 4AC \\), then the discriminant \\( \\Delta \\) will be negative. It means that such an equation has no real roots.</p>
 
                 <h4 style="margin-top: 1rem;">How to use the quadratic formula solver</h4>
-                <p>Write down your equation. Let's assume it is 4x² + 3x – 7 = -4 – x.</p>
-                <p>Bring the equation to the form Ax² + Bx + C = 0. In this example, we will do it in the following steps:</p>
+                <p>Write down your equation. Let's assume it is \\( 4x^2 + 3x - 7 = -4 - x \\).</p>
+                <p>Bring the equation to the form \\( Ax^2 + Bx + C = 0 \\). In this example, we will do it in the following steps:</p>
                 <ol>
-                  <li>4x² + 3x - 7 = -4 – x</li>
-                  <li>4x² + (3 + 1)x + (-7 + 4) = 0</li>
-                  <li>4x² + 4x - 3 = 0</li>
+                  <li>\\( 4x^2 + 3x - 7 = -4 - x \\)</li>
+                  <li>\\( 4x^2 + (3 + 1)x + (-7 + 4) = 0 \\)</li>
+                  <li>\\( 4x^2 + 4x - 3 = 0 \\)</li>
                 </ol>
                 <p>Calculate the discriminant.</p>
-                <p>Δ = B² – 4AC = 4² - 4×4×(-3) = 16 + 48 = 64.</p>
+                <p>\\( \\Delta = B^2 - 4AC = 4^2 - 4 \\times 4 \\times (-3) = 16 + 48 = 64 \\).</p>
                 <p>Decide whether the discriminant is greater, equal, or lower than 0. In our case, the discriminant is greater than 0, which means that this equation has two unique roots.</p>
                 <p>Calculate the two roots using the quadratic formula.</p>
-                <p>x₁ = (-B + √Δ)/2A = (-4 +√64) / (2×4) = (-4 + 8) / 8 = 4/8 = 0.5</p>
-                <p>x₂ = (-B – √Δ)/2A = (-4 -√64) / (2×4) = (-4 – 8) / 8 = -12/8 = -1.5</p>
-                <p>The roots of your equation are x₁ = 0.5 and x₂ = -1.5.</p>
+                <p>\\( x_1 = \\frac{-B + \\sqrt{\\Delta}}{2A} = \\frac{-4 + \\sqrt{64}}{2 \\times 4} = \\frac{-4 + 8}{8} = \\frac{4}{8} = 0.5 \\)</p>
+                <p>\\( x_2 = \\frac{-B - \\sqrt{\\Delta}}{2A} = \\frac{-4 - \\sqrt{64}}{2 \\times 4} = \\frac{-4 - 8}{8} = \\frac{-12}{8} = -1.5 \\)</p>
+                <p>The roots of your equation are \\( x_1 = 0.5 \\) and \\( x_2 = -1.5 \\).</p>
 
                 <h3 style="margin-top: 1.5rem;">Solving quadratic equations with a negative discriminant</h3>
                 <p>Even though the quadratic formula calculator indicates when the equation has no real roots, it is possible to find the solution of a quadratic equation with a negative discriminant. These roots will be complex numbers.</p>
-                <p>Each complex number is a sum of real and imaginary parts. The imaginary part is always equal to the number i = √(-1) multiplied by a real number.</p>
+                <p>Each complex number is a sum of real and imaginary parts. The imaginary part is always equal to the number \\( i = \\sqrt{-1} \\) multiplied by a real number.</p>
                 <p>The quadratic formula remains the same in this case.</p>
-                <p><strong>x = (-B ± √Δ)/2A</strong></p>
-                <p>Notice that, as Δ < 0, the square root of the discriminant will be an imaginary value. Hence:</p>
-                <p>Re(x) = -B/2A</p>
-                <p>Im(x) = ± (√Δ)/2A</p>
+                \\[ x = \\frac{-B \\pm \\sqrt{\\Delta}}{2A} \\]
+                <p>Notice that, as \\( \\Delta < 0 \\), the square root of the discriminant will be an imaginary value. Hence:</p>
+                <p>\\( \\text{Re}(x) = \\frac{-B}{2A} \\)</p>
+                <p>\\( \\text{Im}(x) = \\pm \\frac{\\sqrt{|\\Delta|}}{2A} \\)</p>
               </div>
         `,
         generateHTML: function () {
@@ -507,6 +536,18 @@ export const mathCalculators = {
         name: "Discriminant Calculator",
         description:
           "Calculate the discriminant (b² - 4ac) of a quadratic equation.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>The discriminant of a quadratic equation \\( ax^2 + bx + c = 0 \\) is given by:</p>
+                \\[ \\Delta = b^2 - 4ac \\]
+                <p>The value of the discriminant determines the nature of the roots:</p>
+                <ul>
+                    <li>If \\( \\Delta > 0 \\), there are two distinct real roots.</li>
+                    <li>If \\( \\Delta = 0 \\), there is exactly one real root (repeated).</li>
+                    <li>If \\( \\Delta < 0 \\), there are no real roots (two complex conjugate roots).</li>
+                </ul>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -523,16 +564,21 @@ export const mathCalculators = {
                         </div>
                         <button id="calculate-discriminant" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "discriminant-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-discriminant")
             .addEventListener("click", function () {
@@ -567,6 +613,16 @@ export const mathCalculators = {
         id: "arithmetic-sequence-calculator",
         name: "Arithmetic Sequence",
         description: "Calculate terms and sum of an arithmetic sequence.",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>An arithmetic sequence is a sequence of numbers such that the difference between the consecutive terms is constant.</p>
+                <p>The \\( n \\)-th term \\( a_n \\) is given by:</p>
+                \\[ a_n = a_1 + (n-1)d \\]
+                <p>The sum of the first \\( n \\) terms \\( S_n \\) is:</p>
+                \\[ S_n = \\frac{n}{2}(a_1 + a_n) \\]
+                <p>Where \\( a_1 \\) is the first term and \\( d \\) is the common difference.</p>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -583,16 +639,21 @@ export const mathCalculators = {
                         </div>
                         <button id="calculate-arithmetic" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "arithmetic-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-arithmetic")
             .addEventListener("click", function () {
@@ -633,6 +694,14 @@ export const mathCalculators = {
         id: "factorial-calculator",
         name: "Factorial Calculator",
         description: "Calculate the factorial of a non-negative integer n (n!).",
+        educationalHTML: `
+            <div class="educational-section">
+                <p>The factorial of a non-negative integer \\( n \\), denoted by \\( n! \\), is the product of all positive integers less than or equal to \\( n \\).</p>
+                \\[ n! = n \\times (n-1) \\times (n-2) \\times \\dots \\times 3 \\times 2 \\times 1 \\]
+                <p>For example, \\( 5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120 \\).</p>
+                <p>By definition, \\( 0! = 1 \\).</p>
+            </div>
+        `,
         generateHTML: function () {
           const inputs = `
                         <div class="form-group">
@@ -641,16 +710,21 @@ export const mathCalculators = {
                         </div>
                         <button id="calculate-factorial" class="calculate-btn">Calculate</button>
                     `;
-          // TODO: Add educational text here
           return createCalculatorLayout(
             this.name,
             this.description,
             inputs,
             "factorial-result",
-            false
+            true
           );
         },
         attachEvents: function () {
+            const btn = document.getElementById("what-is-this-btn");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
+                });
+            }
           document
             .getElementById("calculate-factorial")
             .addEventListener("click", function () {
