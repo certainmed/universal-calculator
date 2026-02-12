@@ -1,54 +1,14 @@
 import { createCalculatorLayout, animateReveal } from './utils.js';
+import { combinations, calculateLotteryOdds } from './mathUtils.js';
 
 // --- Helper Functions ---
 
-function factorial(n) {
-    if (n < 0) return NaN;
-    if (n === 0 || n === 1) return 1;
-    let result = 1;
-    for (let i = 2; i <= n; i++) result *= i;
-    return result;
-}
 
-function combinations(n, k) {
-    if (k < 0 || k > n) return 0;
-    // Optimize for large numbers using simplified formula if needed,
-    // but standard factorial division is fine for typical lottery numbers (<100).
-    // Use BigInt for precision if numbers get large, but standard JS numbers handle up to 2^53 integer precision.
-    // Lottery combinations can exceed 2^53 (e.g. 60C10 is huge).
-    // Let's use a iterative multiplicative approach to avoid huge intermediate factorials.
-    if (k === 0 || k === n) return 1;
-    if (k > n / 2) k = n - k;
 
-    let res = 1;
-    for (let i = 1; i <= k; i++) {
-        res = res * (n - i + 1) / i;
-    }
-    return Math.round(res);
-}
 
-// Hypergeometric Distribution Probability
-// P(X=k) = [C(K, k) * C(N-K, n-k)] / C(N, n)
-// Here:
-// N = Pool Size (total balls)
-// K = Winning Numbers in Pool (balls drawn)
-// n = Ticket Size (balls picked) -- usually equal to K in these calculators
-// k = Matches (winning balls on ticket)
-function calculateLotteryOdds(ballsDrawn, matches, poolSize) {
-    // We assume Ticket Size == Balls Drawn (k)
-    // Ways to pick 'matches' winning numbers from 'ballsDrawn' winning numbers: C(ballsDrawn, matches)
-    // Ways to pick remainder 'ballsDrawn - matches' from 'poolSize - ballsDrawn' losing numbers: C(poolSize - ballsDrawn, ballsDrawn - matches)
-    // Total ways to pick 'ballsDrawn' from 'poolSize': C(poolSize, ballsDrawn)
 
-    const waysToMatch = combinations(ballsDrawn, matches);
-    const waysToMiss = combinations(poolSize - ballsDrawn, ballsDrawn - matches);
-    const totalCombinations = combinations(poolSize, ballsDrawn);
 
-    if (totalCombinations === 0) return 0;
 
-    // Probability
-    return (waysToMatch * waysToMiss) / totalCombinations;
-}
 
 
 export const statisticsCalculators = {
@@ -85,10 +45,22 @@ export const statisticsCalculators = {
             const inputs = `
                 <div class="form-group">
                     <label>Game Type:</label>
-                    <div class="radio-group" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <label><input type="radio" name="lottery-type" value="standard" checked> Standard</label>
-                        <label><input type="radio" name="lottery-type" value="bonus-remaining"> Bonus (Remaining Pool)</label>
-                        <label><input type="radio" name="lottery-type" value="bonus-pool"> Bonus (Separate Pool)</label>
+                    <div class="formula-radio-group">
+                        <label class="custom-radio-label">
+                            <input type="radio" name="lottery-type" value="standard" checked>
+                            <span class="radio-mark"></span>
+                            <span class="radio-text">Standard</span>
+                        </label>
+                        <label class="custom-radio-label">
+                            <input type="radio" name="lottery-type" value="bonus-remaining">
+                            <span class="radio-mark"></span>
+                            <span class="radio-text">Bonus (Remaining Pool)</span>
+                        </label>
+                        <label class="custom-radio-label">
+                            <input type="radio" name="lottery-type" value="bonus-pool">
+                            <span class="radio-mark"></span>
+                            <span class="radio-text">Bonus (Separate Pool)</span>
+                        </label>
                     </div>
                 </div>
 
@@ -450,32 +422,30 @@ export const statisticsCalculators = {
             });
 
             document.getElementById("calculate-consecutive").addEventListener("click", () => {
-                 const s = parseFloat(document.getElementById("odds-success").value);
-                 const f = parseFloat(document.getElementById("odds-failure").value);
-                 const x = parseInt(document.getElementById("consecutive-count").value);
+                const x = parseInt(document.getElementById("consecutive-count").value);
+                const decimalOdds = getDecimalOdds();
 
-                 if (isNaN(s) || isNaN(f) || isNaN(x)) {
-                     resultDiv.innerHTML = "Please enter valid Success/Failure and Count.";
-                     return;
-                 }
+                if (isNaN(x) || x < 1) {
+                    resultDiv.innerHTML = "Please enter a valid count for consecutive events.";
+                    return;
+                }
 
-                 const total = s + f;
-                 if (total === 0) {
-                      resultDiv.innerHTML = "Total chances cannot be zero.";
-                      return;
-                 }
+                if (!decimalOdds || decimalOdds <= 1) {
+                    resultDiv.innerHTML = "Please enter valid Fractional Odds or Success/Failure values first.";
+                    return;
+                }
 
-                 const pWin = s / total;
-                 const pLoss = f / total;
+                const pWin = 1 / decimalOdds;
+                const pLoss = 1 - pWin;
 
-                 const pWinX = Math.pow(pWin, x);
-                 const pLossX = Math.pow(pLoss, x);
+                const pWinX = Math.pow(pWin, x);
+                const pLossX = Math.pow(pLoss, x);
 
-                 resultDiv.innerHTML = `
+                resultDiv.innerHTML = `
                     <h4>Consecutive Probability (${x} times)</h4>
                     <p>Winning ${x} times in a row: <strong>${(pWinX * 100).toFixed(4)}%</strong></p>
                     <p>Losing ${x} times in a row: <strong>${(pLossX * 100).toFixed(4)}%</strong></p>
-                 `;
+                `;
             });
 
             document.getElementById("convert-odds").addEventListener("click", () => {
