@@ -2,7 +2,6 @@
 export function initializeUI(calculators) {
     const sidebarNav = document.getElementById("sidebar-nav");
     const calculatorDisplay = document.getElementById("calculator-display");
-    const pageTitle = document.getElementById("page-title");
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const sidebar = document.querySelector(".sidebar");
 
@@ -43,7 +42,6 @@ export function initializeUI(calculators) {
         }
 
         currentCalculatorId = id;
-        pageTitle.textContent = calc.name;
         document.title = calc.name + " - Universal Calculator";
 
         // Show Top Bar (was hidden on home page)
