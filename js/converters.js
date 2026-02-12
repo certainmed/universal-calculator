@@ -105,9 +105,7 @@ export const convertersCalculators = {
                 });
             }
 
-          document
-            .getElementById("calculate-area")
-            .addEventListener("click", function () {
+            const calculate = () => {
               const value = parseFloat(
                 document.getElementById("area-value").value
               );
@@ -116,7 +114,7 @@ export const convertersCalculators = {
               const resultDiv = document.getElementById("area-result");
 
               if (isNaN(value)) {
-                resultDiv.innerHTML = "Please enter a valid number";
+                resultDiv.innerHTML = '<span style="opacity: 0.5;">Enter value...</span>';
                 return;
               }
 
@@ -162,7 +160,12 @@ export const convertersCalculators = {
                   <div style="font-size: 0.9em; opacity: 0.7;">${value} ${units[fromUnit].label} =</div>
                   <strong>${formattedResult} ${units[toUnit].label}</strong>
               `;
-            });
+            };
+
+            document.getElementById("calculate-area").addEventListener("click", calculate);
+            document.getElementById("area-value").addEventListener("input", calculate);
+            document.getElementById("from-unit").addEventListener("change", calculate);
+            document.getElementById("to-unit").addEventListener("change", calculate);
         },
       },
     ],

@@ -45,9 +45,8 @@ export const mathCalculators = {
                     animateReveal(this.educationalHTML, document.getElementById("educational-content-container"));
                 });
             }
-          document
-            .getElementById("calculate-percentage")
-            .addEventListener("click", function () {
+
+            const calculate = () => {
               const value = parseFloat(
                 document.getElementById("percent-value").value
               );
@@ -57,7 +56,7 @@ export const mathCalculators = {
               const resultDiv = document.getElementById("percentage-result");
 
               if (isNaN(value) || isNaN(percentage)) {
-                resultDiv.innerHTML = "Please enter valid numbers";
+                resultDiv.innerHTML = '<span style="opacity: 0.5;">Enter values...</span>';
                 return;
               }
 
@@ -65,7 +64,11 @@ export const mathCalculators = {
               resultDiv.innerHTML = `${percentage}% of ${value} = <strong>${result.toFixed(
                 2
               )}</strong>`;
-            });
+            };
+
+            document.getElementById("calculate-percentage").addEventListener("click", calculate);
+            document.getElementById("percent-value").addEventListener("input", calculate);
+            document.getElementById("percent-percentage").addEventListener("input", calculate);
         },
       },
       {

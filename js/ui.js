@@ -32,6 +32,7 @@ export function initializeUI(calculators) {
 
         currentCalculatorId = id;
         pageTitle.textContent = calc.name;
+        document.title = calc.name + " - Universal Calculator";
 
         // Show Top Bar (was hidden on home page)
         const topBar = document.querySelector(".top-bar");
@@ -159,12 +160,58 @@ export function initializeUI(calculators) {
         }
     });
 
+    // Search Functionality
+    const searchInput = document.getElementById("calc-search");
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            const query = e.target.value.toLowerCase();
+            const categories = document.querySelectorAll(".nav-category");
+
+            categories.forEach(category => {
+                let hasVisibleItems = false;
+                const items = category.querySelectorAll(".nav-item");
+
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        item.style.display = "block";
+                        hasVisibleItems = true;
+                    } else {
+                        item.style.display = "none";
+                    }
+                });
+
+                // Show/hide category header based on visible items
+                if (hasVisibleItems) {
+                    category.style.display = "block";
+                } else {
+                    category.style.display = "none";
+                }
+            });
+        });
+    }
+
     // Initial Render call
     renderSidebar();
 
-    // Hide top bar initially on home page
+    // Top bar is now visible by default to show the search bar
     const topBar = document.querySelector(".top-bar");
     if (topBar) {
-        topBar.classList.add("hidden");
+        topBar.classList.remove("hidden");
     }
+
+    // Global Enter Key Support
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            // Check if focus is on an input or select
+            if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") {
+                // Find the calculate button within the active calculator display
+                const calcBtn = document.querySelector("#calculator-display .calculate-btn");
+                if (calcBtn) {
+                    calcBtn.click();
+                    e.preventDefault();
+                }
+            }
+        }
+    });
 }
