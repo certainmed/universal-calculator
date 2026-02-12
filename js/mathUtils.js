@@ -26,3 +26,39 @@ export function calculateTimePercentage(totalTime, elapsedTime) {
     percentageRemaining
   };
 }
+
+/**
+ * Calculates the number of combinations (n choose k).
+ * @param {number} n - The total number of items.
+ * @param {number} k - The number of items to choose.
+ * @returns {number} The number of combinations.
+ */
+export function combinations(n, k) {
+    if (k < 0 || k > n) return 0;
+    if (k === 0 || k === n) return 1;
+    if (k > n / 2) k = n - k;
+
+    let res = 1;
+    for (let i = 1; i <= k; i++) {
+        res = res * (n - i + 1) / i;
+    }
+    return Math.round(res);
+}
+
+/**
+ * Calculates the probability of winning a lottery based on the hypergeometric distribution.
+ * P(X=k) = [C(ballsDrawn, matches) * C(poolSize - ballsDrawn, ballsDrawn - matches)] / C(poolSize, ballsDrawn)
+ * @param {number} ballsDrawn - The number of balls drawn (and also on the ticket).
+ * @param {number} matches - The number of matches.
+ * @param {number} poolSize - The total number of balls in the pool.
+ * @returns {number} The probability of winning.
+ */
+export function calculateLotteryOdds(ballsDrawn, matches, poolSize) {
+    const waysToMatch = combinations(ballsDrawn, matches);
+    const waysToMiss = combinations(poolSize - ballsDrawn, ballsDrawn - matches);
+    const totalCombinations = combinations(poolSize, ballsDrawn);
+
+    if (totalCombinations === 0) return 0;
+
+    return (waysToMatch * waysToMiss) / totalCombinations;
+}
