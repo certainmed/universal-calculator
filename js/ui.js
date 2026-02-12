@@ -7,6 +7,18 @@ export function initializeUI(calculators) {
     const sidebar = document.querySelector(".sidebar");
 
     let currentCalculatorId = null;
+    let searchCache = null;
+
+    function buildSearchCache() {
+        const categories = document.querySelectorAll(".nav-category");
+        searchCache = Array.from(categories).map(category => ({
+            element: category,
+            items: Array.from(category.querySelectorAll(".nav-item")).map(item => ({
+                element: item,
+                text: item.textContent.toLowerCase()
+            }))
+        }));
+    }
 
     function loadCalculator(category, subcategory, id) {
         // Update Active State
@@ -48,6 +60,7 @@ export function initializeUI(calculators) {
 
     function renderSidebar() {
         sidebarNav.innerHTML = "";
+        searchCache = null;
 
         for (const [catKey, category] of Object.entries(calculators)) {
             // Category Header
@@ -163,31 +176,27 @@ export function initializeUI(calculators) {
     // Search Functionality
     const searchInput = document.getElementById("calc-search");
     if (searchInput) {
-        searchInput.addEventListener("input", (e) => {
-            const query = e.target.value.toLowerCase();
-            const categories = document.querySelectorAll(".nav-category");
+        const handleSearch = debounce((query) => {
+            if (!searchCache) buildSearchCache();
 
-            categories.forEach(category => {
+            searchCache.forEach(category => {
                 let hasVisibleItems = false;
-                const items = category.querySelectorAll(".nav-item");
-
-                items.forEach(item => {
-                    const text = item.textContent.toLowerCase();
-                    if (text.includes(query)) {
-                        item.style.display = "block";
+                category.items.forEach(item => {
+                    if (item.text.includes(query)) {
+                        item.element.style.display = "block";
                         hasVisibleItems = true;
                     } else {
-                        item.style.display = "none";
+                        item.element.style.display = "none";
                     }
                 });
 
                 // Show/hide category header based on visible items
-                if (hasVisibleItems) {
-                    category.style.display = "block";
-                } else {
-                    category.style.display = "none";
-                }
+                category.element.style.display = hasVisibleItems ? "block" : "none";
             });
+        }, 150);
+
+        searchInput.addEventListener("input", (e) => {
+            handleSearch(e.target.value.toLowerCase());
         });
     }
 
@@ -214,4 +223,22 @@ export function initializeUI(calculators) {
             }
         }
     });
+}
+
+/**
+ * Debounce function to limit the frequency of function calls.
+ * @param {Function} func - The function to debounce.
+ * @param {number} wait - The delay in milliseconds.
+ * @returns {Function} - The debounced function.
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
