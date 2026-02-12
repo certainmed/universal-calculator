@@ -410,3 +410,25 @@ button.calculate-btn:hover {
   color: var(--text-main);
   font-size: 1.05rem;
 }
+
+/* What is this? Button */
+.what-is-this-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1rem;
+  border-radius: 20px; /* Round pill shape */
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+}
+
+.what-is-this-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.what-is-this-btn:active {
+  transform: translateY(1px);
+}
