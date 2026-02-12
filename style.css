@@ -149,10 +149,21 @@ body {
 
 #mobile-menu-btn {
   display: none; /* Hidden on desktop */
-  background: none;
+  background: white;
   border: none;
-  cursor: pointer;
-  padding: 0.5rem;
+  cursor: grab;
+  padding: 0.75rem;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  touch-action: none; /* Prevent scrolling while dragging */
+}
+
+#mobile-menu-btn:active {
+  cursor: grabbing;
 }
 
 #mobile-menu-btn .icon {
@@ -167,6 +178,8 @@ body {
   width: 100%;
   margin: 0 auto;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Calculator Grid Layout */
@@ -273,8 +286,13 @@ button.calculate-btn:hover {
 /* Welcome Screen */
 .welcome-screen {
   text-align: center;
-  margin-top: 4rem;
   color: var(--text-secondary);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .welcome-screen h2 {
@@ -312,8 +330,15 @@ button.calculate-btn:hover {
   }
 
   #mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+}
+
+/* Utility to hide elements */
+.hidden {
+  display: none !important;
 }
 
 /* Custom Radio Buttons */
