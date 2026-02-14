@@ -54,6 +54,12 @@ export function initializeUI(calculators) {
         // Render Content
         calculatorDisplay.innerHTML = calc.generateHTML();
         calc.attachEvents();
+
+        // Focus Management
+        const title = calculatorDisplay.querySelector(".calculator-title");
+        if (title) {
+            title.focus();
+        }
     }
 
     function renderSidebar() {
