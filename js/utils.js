@@ -20,6 +20,7 @@ export function createCalculatorLayout(title, description, inputsHTML, resultId,
     }
 
     return `
+        <h2 class="calculator-title" tabindex="-1" style="margin-bottom: 1rem;">${title}</h2>
         <div class="calculator-wrapper">
             <div class="calculator-inputs">
                 <h3>Inputs</h3>
