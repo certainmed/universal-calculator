@@ -53,6 +53,13 @@ export function initializeUI(calculators) {
 
         // Render Content
         calculatorDisplay.innerHTML = calc.generateHTML();
+
+        // Focus on the calculator title for accessibility
+        const titleElement = calculatorDisplay.querySelector('h2.calculator-title');
+        if (titleElement) {
+            titleElement.focus();
+        }
+
         calc.attachEvents();
     }
 
