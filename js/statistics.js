@@ -25,7 +25,7 @@ export const statisticsCalculators = {
                 <h3>How does the lottery odds calculator work?</h3>
                 <p>The lottery calculator determines the probability of winning based on the hypergeometric distribution.</p>
                 <p><strong>The Formula:</strong></p>
-                \[ P = \frac{\binom{k}{m} \times \binom{n-k}{k-m}}{\binom{n}{k}} \]
+                \\[ P = \\frac{\\binom{k}{m} \\times \\binom{n-k}{k-m}}{\\binom{n}{k}} \\]
                 <p>Where:</p>
                 <ul>
                     <li><strong>n:</strong> Total balls in the pool.</li>
