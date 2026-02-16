@@ -22,7 +22,10 @@ export function initializeUI(calculators) {
     function loadCalculator(category, subcategory, id) {
         // Update Active State
         const buttons = document.querySelectorAll(".nav-item");
-        buttons.forEach(btn => btn.classList.remove("active"));
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+            btn.removeAttribute("aria-current");
+        });
 
         // Find the calculator object
         const calc = calculators[category].subcategories[subcategory].find(c => c.id === id);
@@ -37,6 +40,7 @@ export function initializeUI(calculators) {
         for (const btn of buttons) {
             if (btn.textContent === calc.name) {
                 btn.classList.add("active");
+                btn.setAttribute("aria-current", "page");
                 break;
             }
         }
@@ -214,8 +218,9 @@ export function initializeUI(calculators) {
         topBar.classList.remove("hidden");
     }
 
-    // Global Enter Key Support
+    // Global Keyboard Shortcuts
     document.addEventListener("keydown", (e) => {
+        // Enter Key: Trigger Calculation
         if (e.key === "Enter") {
             // Check if focus is on an input or select
             if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") {
@@ -224,6 +229,19 @@ export function initializeUI(calculators) {
                 if (calcBtn) {
                     calcBtn.click();
                     e.preventDefault();
+                }
+            }
+        }
+
+        // Slash Key: Focus Search
+        if (e.key === "/") {
+            // Don't trigger if user is typing in an input or textarea
+            const tag = document.activeElement.tagName;
+            if (tag !== "INPUT" && tag !== "TEXTAREA") {
+                e.preventDefault(); // Prevent printing '/'
+                const searchInput = document.getElementById("calc-search");
+                if (searchInput) {
+                    searchInput.focus();
                 }
             }
         }
