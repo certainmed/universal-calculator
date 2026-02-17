@@ -464,6 +464,26 @@ button.calculate-btn:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.search-key {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: rgba(0,0,0,0.05);
+    font-size: 0.8rem;
+    font-family: monospace;
+    padding: 0.1rem 0.5rem;
+    pointer-events: none;
+    color: var(--text-secondary);
+    transition: opacity 0.2s;
+}
+
+.search-wrapper input:focus ~ .search-key {
+    opacity: 0;
+}
+
 .search-icon {
     position: absolute;
     left: 12px;
