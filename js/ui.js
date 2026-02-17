@@ -203,6 +203,14 @@ export function initializeUI(calculators) {
         searchInput.addEventListener("input", (e) => {
             handleSearch(e.target.value.toLowerCase());
         });
+
+        // Add keyboard shortcut (/)
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        });
     }
 
     // Initial Render call
