@@ -449,7 +449,7 @@ button.calculate-btn:hover {
 
 .search-wrapper input {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    padding: 0.75rem 2.5rem 0.75rem 2.75rem;
     border: 1px solid var(--border-color);
     border-radius: 24px;
     font-size: 0.95rem;
@@ -473,4 +473,28 @@ button.calculate-btn:hover {
     height: 18px;
     opacity: 0.5;
     pointer-events: none;
+}
+
+.shortcut-key {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background-color: var(--bg-body);
+    pointer-events: none;
+    user-select: none;
+    font-family: monospace;
+    font-weight: 600;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    transition: opacity 0.2s;
+}
+
+#calc-search:focus + .shortcut-key,
+#calc-search:not(:placeholder-shown) + .shortcut-key {
+    opacity: 0;
 }

@@ -214,8 +214,18 @@ export function initializeUI(calculators) {
         topBar.classList.remove("hidden");
     }
 
-    // Global Enter Key Support
+    // Global Keyboard Shortcuts
     document.addEventListener("keydown", (e) => {
+        // Search Shortcut (/)
+        if (e.key === "/" && searchInput) {
+            // Prevent if user is already typing in an input
+            if (document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA" && document.activeElement.tagName !== "SELECT") {
+                e.preventDefault();
+                searchInput.focus();
+            }
+        }
+
+        // Enter Key Support (Calculate)
         if (e.key === "Enter") {
             // Check if focus is on an input or select
             if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") {
