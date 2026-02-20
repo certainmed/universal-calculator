@@ -214,8 +214,9 @@ export function initializeUI(calculators) {
         topBar.classList.remove("hidden");
     }
 
-    // Global Enter Key Support
+    // Global Keyboard Shortcuts
     document.addEventListener("keydown", (e) => {
+        // Enter Key: Trigger calculation
         if (e.key === "Enter") {
             // Check if focus is on an input or select
             if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") {
@@ -225,6 +226,18 @@ export function initializeUI(calculators) {
                     calcBtn.click();
                     e.preventDefault();
                 }
+            }
+        }
+
+        // Slash Key: Focus Search
+        if (e.key === "/" && searchInput) {
+            const activeTag = document.activeElement.tagName;
+            const isInput = activeTag === "INPUT" || activeTag === "TEXTAREA" || activeTag === "SELECT";
+            const isContentEditable = document.activeElement.isContentEditable;
+
+            if (!isInput && !isContentEditable) {
+                e.preventDefault();
+                searchInput.focus();
             }
         }
     });
