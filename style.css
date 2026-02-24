@@ -228,6 +228,10 @@ body {
   font-weight: 600;
 }
 
+.result-content > * {
+  animation: fadeIn 0.3s ease-out;
+}
+
 /* Forms */
 .form-group {
   margin-bottom: 1.5rem;
