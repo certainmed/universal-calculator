@@ -474,3 +474,21 @@ button.calculate-btn:hover {
     opacity: 0.5;
     pointer-events: none;
 }
+
+/* Skip to Content Link (Accessibility) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent-color);
+  color: white;
+  padding: 8px;
+  z-index: 2000;
+  transition: top 0.2s;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+  top: 0;
+}
