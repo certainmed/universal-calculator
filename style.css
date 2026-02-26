@@ -29,6 +29,28 @@ body {
   overflow: hidden; /* App-like feel */
 }
 
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--accent-color);
+  color: white;
+  padding: 1rem;
+  z-index: 9999;
+  text-decoration: none;
+  font-weight: bold;
+  transform: translateY(-100%);
+  transition: transform 0.2s ease-in-out;
+  border-bottom-right-radius: 4px;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid #3498db;
+  outline-offset: -3px;
+}
+
 /* Layout */
 .app-layout {
   display: flex;
