@@ -1,3 +1,3 @@
-## 2026-02-15 - Calculator Focus Management
-**Learning:** Loading new content into a main region without moving focus leaves screen reader users stranded at the navigation trigger.
-**Action:** Always shift focus to the main heading of the new content (`tabindex="-1"`) when performing client-side navigation or content replacement.
+## 2024-05-24 - Dynamic Content Accessibility
+**Learning:** Screen readers do not automatically announce content that is updated dynamically (like calculator results) unless explicitly instructed.
+**Action:** Always add `aria-live="polite"` and `aria-atomic="true"` to containers where results of user actions are rendered asynchronously.
