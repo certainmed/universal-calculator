@@ -214,7 +214,7 @@ export function initializeUI(calculators) {
         topBar.classList.remove("hidden");
     }
 
-    // Global Enter Key Support
+    // Global Keyboard Shortcuts
     document.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             // Check if focus is on an input or select
@@ -224,6 +224,14 @@ export function initializeUI(calculators) {
                 if (calcBtn) {
                     calcBtn.click();
                     e.preventDefault();
+                }
+            }
+        } else if (e.key === "/") {
+            // Focus search bar on '/' unless user is typing in an input/textarea
+            if (e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA" && e.target.tagName !== "SELECT") {
+                e.preventDefault();
+                if (searchInput) {
+                    searchInput.focus();
                 }
             }
         }
