@@ -226,6 +226,15 @@ export function initializeUI(calculators) {
                     e.preventDefault();
                 }
             }
+        } else if (e.key === "/") {
+            // Focus search bar if not already in an input/textarea
+            const tag = e.target.tagName;
+            if (tag !== "INPUT" && tag !== "TEXTAREA" && tag !== "SELECT") {
+                if (searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            }
         }
     });
 }
