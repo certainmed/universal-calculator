@@ -113,6 +113,12 @@ body {
   padding-left: 2.75rem; /* Subtle shift */
 }
 
+.nav-item:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .nav-item.active {
   background-color: var(--border-color);
   font-weight: 600;
@@ -165,6 +171,11 @@ body {
 
 #mobile-menu-btn:active {
   cursor: grabbing;
+}
+
+#mobile-menu-btn:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 #mobile-menu-btn .icon {
@@ -256,6 +267,7 @@ body {
 .form-group select:focus {
   outline: none;
   border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 button.calculate-btn {
@@ -274,6 +286,11 @@ button.calculate-btn {
 
 button.calculate-btn:hover {
   background-color: var(--accent-hover);
+}
+
+button.calculate-btn:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 /* Info/Description Text */
@@ -434,6 +451,11 @@ button.calculate-btn:hover {
   transform: translateY(1px);
 }
 
+.what-is-this-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
 /* Search Bar */
 .search-container {
     flex: 1;
@@ -461,7 +483,7 @@ button.calculate-btn:hover {
 .search-wrapper input:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .search-icon {
