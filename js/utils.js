@@ -31,7 +31,7 @@ export function createCalculatorLayout(title, description, inputsHTML, resultId,
             </div>
             <div class="calculator-results">
                 <h3>Result</h3>
-                <div id="${resultId}" class="result-content">
+                <div id="${resultId}" class="result-content" aria-live="polite" aria-atomic="true">
                     <span style="opacity: 0.5; font-size: 1rem;">Enter values and click Calculate</span>
                 </div>
                 ${educationalButton}
