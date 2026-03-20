@@ -22,7 +22,10 @@ export function initializeUI(calculators) {
     function loadCalculator(category, subcategory, id) {
         // Update Active State
         const buttons = document.querySelectorAll(".nav-item");
-        buttons.forEach(btn => btn.classList.remove("active"));
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+            btn.removeAttribute("aria-current");
+        });
 
         // Find the calculator object
         const calc = calculators[category].subcategories[subcategory].find(c => c.id === id);
@@ -37,6 +40,7 @@ export function initializeUI(calculators) {
         for (const btn of buttons) {
             if (btn.textContent === calc.name) {
                 btn.classList.add("active");
+                btn.setAttribute("aria-current", "page");
                 break;
             }
         }
@@ -50,6 +54,9 @@ export function initializeUI(calculators) {
 
         // Close mobile sidebar
         sidebar.classList.remove("active");
+        if (mobileMenuBtn) {
+            mobileMenuBtn.setAttribute("aria-expanded", "false");
+        }
 
         // Render Content
         calculatorDisplay.innerHTML = calc.generateHTML();
@@ -164,7 +171,8 @@ export function initializeUI(calculators) {
                 e.stopPropagation();
                 return;
             }
-            sidebar.classList.toggle("active");
+            const isActive = sidebar.classList.toggle("active");
+            mobileMenuBtn.setAttribute("aria-expanded", isActive ? "true" : "false");
         });
     }
 
@@ -172,8 +180,9 @@ export function initializeUI(calculators) {
     document.addEventListener("click", (e) => {
         if (window.innerWidth <= 900) {
             // Check if click target is not sidebar and not the menu button
-            if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains("active")) {
+            if (!sidebar.contains(e.target) && mobileMenuBtn && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains("active")) {
                 sidebar.classList.remove("active");
+                mobileMenuBtn.setAttribute("aria-expanded", "false");
             }
         }
     });
