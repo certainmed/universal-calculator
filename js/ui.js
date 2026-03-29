@@ -75,7 +75,7 @@ export function initializeUI(calculators) {
             const catTitle = document.createElement("div");
             catTitle.className = "nav-category-header";
             catTitle.innerHTML = `
-                <svg class="icon"><use href="#${category.icon}"></use></svg>
+                <svg class="icon" aria-hidden="true"><use href="#${category.icon}"></use></svg>
                 ${category.label}
             `;
             catHeader.appendChild(catTitle);
