@@ -1,3 +1,3 @@
-## 2026-02-15 - Calculator Focus Management
-**Learning:** Loading new content into a main region without moving focus leaves screen reader users stranded at the navigation trigger.
-**Action:** Always shift focus to the main heading of the new content (`tabindex="-1"`) when performing client-side navigation or content replacement.
+## 2025-01-20 - SPA Accessibility State Synchronization
+**Learning:** In vanilla JavaScript SPAs, state-based accessibility attributes (like `aria-current="page"` and `aria-expanded`) must be manually synchronized with their corresponding visual CSS classes (like `.active`) via JavaScript event handlers, as the framework does not handle this automatically.
+**Action:** Ensure that any element utilizing `.active` or similar state classes also updates its relevant ARIA attributes (`aria-current`, `aria-expanded`) in the same event handlers to keep screen readers informed of state changes.
