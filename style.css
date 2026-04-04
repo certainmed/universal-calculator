@@ -337,6 +337,17 @@ button.calculate-btn:hover {
   }
 }
 
+/* Accessibility: Focus Visible */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+.nav-item:focus-visible,
+.what-is-this-btn:focus-visible,
+#mobile-menu-btn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
 /* Utility to hide elements */
 .hidden {
   display: none !important;
