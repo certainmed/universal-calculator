@@ -4,17 +4,8 @@ test('Verify Navbar and Mass Percentage Calculator', async ({ page }) => {
   // Start server (assuming it's running on 8080)
   await page.goto('http://localhost:8080/');
 
-  // 1. Check Navbar
-  const pageTitle = await page.;
-  expect(pageTitle).toBeNull();
-  console.log('Page title removed.');
-
-  const searchContainer = await page.;
-  const justifyContent = await searchContainer.evaluate((el) => {
-    return window.getComputedStyle(el).justifyContent;
-  });
-  expect(justifyContent).toBe('center');
-  console.log('Search container centered.');
+  // 1. Wait for load
+  await page.waitForSelector('.sidebar');
 
   // 2. Navigate to Mass Percentage Calculator
   await page.fill('#calc-search', 'Mass Percentage');

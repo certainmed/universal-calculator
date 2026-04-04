@@ -1,3 +1,7 @@
 ## 2026-02-15 - Calculator Focus Management
 **Learning:** Loading new content into a main region without moving focus leaves screen reader users stranded at the navigation trigger.
 **Action:** Always shift focus to the main heading of the new content (`tabindex="-1"`) when performing client-side navigation or content replacement.
+
+## 2026-02-18 - Improved Focus Indicators and Sprite-based Icon Accessibility
+**Learning:** This application makes heavy use of inline SVG sprite sheets (`<svg style="display: none;"><symbol>...`) which are then referenced via `<use href="#icon-name">`. Screen readers will frequently announce these visual decorations redundantly if they aren't explicitly hidden. Additionally, several core inputs (like `#calc-search`) rely strictly on placeholders without `<label>`s, needing `aria-label`s. We also noticed the app relies mostly on custom visual indicators, but lacked clear `:focus-visible` styles for pure keyboard users.
+**Action:** Always add `aria-hidden="true"` to `<svg>` tags using the `<use>` pattern when they are purely decorative. Always add `aria-label` to placeholder-only inputs. Explicitly define `:focus-visible` states globally for interactive elements (`button`, `a`, `[role="button"]`) using the existing CSS variables (e.g. `var(--accent-color)`).
