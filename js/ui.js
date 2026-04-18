@@ -22,7 +22,10 @@ export function initializeUI(calculators) {
     function loadCalculator(category, subcategory, id) {
         // Update Active State
         const buttons = document.querySelectorAll(".nav-item");
-        buttons.forEach(btn => btn.classList.remove("active"));
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+            btn.removeAttribute("aria-current");
+        });
 
         // Find the calculator object
         const calc = calculators[category].subcategories[subcategory].find(c => c.id === id);
@@ -37,6 +40,7 @@ export function initializeUI(calculators) {
         for (const btn of buttons) {
             if (btn.textContent === calc.name) {
                 btn.classList.add("active");
+                btn.setAttribute("aria-current", "page");
                 break;
             }
         }
@@ -50,6 +54,7 @@ export function initializeUI(calculators) {
 
         // Close mobile sidebar
         sidebar.classList.remove("active");
+        if (mobileMenuBtn) mobileMenuBtn.setAttribute("aria-expanded", "false");
 
         // Render Content
         calculatorDisplay.innerHTML = calc.generateHTML();
@@ -75,7 +80,7 @@ export function initializeUI(calculators) {
             const catTitle = document.createElement("div");
             catTitle.className = "nav-category-header";
             catTitle.innerHTML = `
-                <svg class="icon"><use href="#${category.icon}"></use></svg>
+                <svg class="icon" aria-hidden="true"><use href="#${category.icon}"></use></svg>
                 ${category.label}
             `;
             catHeader.appendChild(catTitle);
@@ -165,6 +170,7 @@ export function initializeUI(calculators) {
                 return;
             }
             sidebar.classList.toggle("active");
+            mobileMenuBtn.setAttribute("aria-expanded", sidebar.classList.contains("active") ? "true" : "false");
         });
     }
 
@@ -174,6 +180,7 @@ export function initializeUI(calculators) {
             // Check if click target is not sidebar and not the menu button
             if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains("active")) {
                 sidebar.classList.remove("active");
+                if (mobileMenuBtn) mobileMenuBtn.setAttribute("aria-expanded", "false");
             }
         }
     });
