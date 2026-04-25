@@ -474,3 +474,18 @@ button.calculate-btn:hover {
     opacity: 0.5;
     pointer-events: none;
 }
+
+/* Focus Visible Accessibility */
+button:focus-visible,
+.nav-item:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.nav-item:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent-color);
+  outline: none;
+}
