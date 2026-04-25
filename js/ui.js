@@ -22,21 +22,20 @@ export function initializeUI(calculators) {
     function loadCalculator(category, subcategory, id) {
         // Update Active State
         const buttons = document.querySelectorAll(".nav-item");
-        buttons.forEach(btn => btn.classList.remove("active"));
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+            btn.removeAttribute("aria-current");
+        });
 
         // Find the calculator object
         const calc = calculators[category].subcategories[subcategory].find(c => c.id === id);
         if (!calc) return;
 
         // Set active class on button
-        // Since we regenerate buttons, we can't easily reference "this" from onclick unless passed.
-        // But we can search by text or keep a reference if we wanted.
-        // For simplicity, let's just loop and match text again as in original script,
-        // or improved: match by checking if the onclick handler corresponds? No.
-        // Match by text content is what the original did.
         for (const btn of buttons) {
             if (btn.textContent === calc.name) {
                 btn.classList.add("active");
+                btn.setAttribute("aria-current", "page");
                 break;
             }
         }
