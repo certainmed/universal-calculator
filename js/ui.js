@@ -22,7 +22,10 @@ export function initializeUI(calculators) {
     function loadCalculator(category, subcategory, id) {
         // Update Active State
         const buttons = document.querySelectorAll(".nav-item");
-        buttons.forEach(btn => btn.classList.remove("active"));
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+            btn.removeAttribute("aria-current");
+        });
 
         // Find the calculator object
         const calc = calculators[category].subcategories[subcategory].find(c => c.id === id);
@@ -37,6 +40,7 @@ export function initializeUI(calculators) {
         for (const btn of buttons) {
             if (btn.textContent === calc.name) {
                 btn.classList.add("active");
+                btn.setAttribute("aria-current", "page");
                 break;
             }
         }
