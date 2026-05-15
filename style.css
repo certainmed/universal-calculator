@@ -1,5 +1,6 @@
 /* Reset and Variables */
 :root {
+  --focus-ring: 0 0 0 2px rgba(0, 0, 0, 0.2);
   --bg-body: #ffffff;
   --bg-sidebar: #f8f9fa;
   --bg-input: #ffffff;
@@ -256,6 +257,7 @@ body {
 .form-group select:focus {
   outline: none;
   border-color: var(--accent-color);
+  box-shadow: var(--focus-ring);
 }
 
 button.calculate-btn {
@@ -335,6 +337,14 @@ button.calculate-btn:hover {
     align-items: center;
     justify-content: center;
   }
+}
+
+/* Focus Visible Global Styles */
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 /* Utility to hide elements */
