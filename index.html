@@ -55,9 +55,9 @@
 
     <div class="app-layout">
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
         <div class="logo">
-          <svg class="icon-logo"><use href="#icon-calc"></use></svg>
+          <svg class="icon-logo" aria-hidden="true"><use href="#icon-calc"></use></svg>
           <span>Universal Calculator</span>
         </div>
         <nav id="sidebar-nav" class="nav-menu">
@@ -71,8 +71,8 @@
 
           <div class="search-container">
             <div class="search-wrapper">
-              <svg class="search-icon"><use href="#icon-search"></use></svg>
-              <input type="text" id="calc-search" placeholder="Search calculators...">
+              <svg class="search-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+              <input type="text" id="calc-search" placeholder="Search calculators..." aria-label="Search calculators">
             </div>
           </div>
         </header>
@@ -86,8 +86,8 @@
       </main>
     </div>
 
-    <button id="mobile-menu-btn" aria-label="Toggle Menu">
-      <svg class="icon"><use href="#icon-menu"></use></svg>
+    <button id="mobile-menu-btn" aria-label="Toggle Menu" aria-controls="sidebar" aria-expanded="false">
+      <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
     </button>
 
     <script type="module" src="js/core.js"></script>
