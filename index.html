@@ -55,7 +55,7 @@
 
     <div class="app-layout">
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside id="sidebar" class="sidebar">
         <div class="logo">
           <svg class="icon-logo"><use href="#icon-calc"></use></svg>
           <span>Universal Calculator</span>
@@ -86,7 +86,7 @@
       </main>
     </div>
 
-    <button id="mobile-menu-btn" aria-label="Toggle Menu">
+    <button id="mobile-menu-btn" aria-label="Toggle Menu" aria-controls="sidebar" aria-expanded="false">
       <svg class="icon"><use href="#icon-menu"></use></svg>
     </button>
 
