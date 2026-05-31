@@ -50,6 +50,9 @@ export function initializeUI(calculators) {
 
         // Close mobile sidebar
         sidebar.classList.remove("active");
+        if (mobileMenuBtn) {
+            mobileMenuBtn.setAttribute("aria-expanded", "false");
+        }
 
         // Render Content
         calculatorDisplay.innerHTML = calc.generateHTML();
@@ -165,6 +168,7 @@ export function initializeUI(calculators) {
                 return;
             }
             sidebar.classList.toggle("active");
+            mobileMenuBtn.setAttribute("aria-expanded", sidebar.classList.contains("active") ? "true" : "false");
         });
     }
 
@@ -174,6 +178,9 @@ export function initializeUI(calculators) {
             // Check if click target is not sidebar and not the menu button
             if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains("active")) {
                 sidebar.classList.remove("active");
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.setAttribute("aria-expanded", "false");
+                }
             }
         }
     });
